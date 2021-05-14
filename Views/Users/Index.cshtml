@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Restaurant.Models.Data.User>
+@{
+    ViewBag.Title = "Список пользователей";
+}
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+{
+    <h2>Hello employee!</h2>
+
+    <a asp-action="Create">Добавить пользователя</a>
+
+    <table class="table">
+        <tr>
+            <th>Email</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th></th>
+        </tr>
+        @foreach (var user in Model)
+        {
+
+            <tr>
+                <td>@user.Email</td>
+                <td>@user.PersonName</td>
+                <td>@user.PersonSurname</td>
+                <td>
+                    <form asp-action="Delete" asp-route-id="@user.Id" method="post">
+                        <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@user.Id">Изменить</a>
+                        <a class="btn btn-sm btn-primary" asp-action="ChangePassword" asp-route-id="@user.Id">Сменить пароль</a>
+                        <button type="submit" class="btn btn-sm btn-danger">
+                            Удалить
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+}
+else if (User.Identity.IsAuthenticated && User.IsInRole("employee"))
+{
+    <h2>Hello employee!</h2>
+}
+else
+{
+    <h2>hello user!</h2>
+    <a>Данные пользователя</a>
+    <a>Данные о заказах</a>
+}

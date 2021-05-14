@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Restaurant.Models;
+using Restaurant.Models;
+using Restaurant.Models.Data;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,10 +14,12 @@ namespace Restaurant.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationContext _context;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ApplicationContext context, ILogger<HomeController> logger)
         {
+            _context = context;
             _logger = logger;
         }
 
@@ -22,6 +27,14 @@ namespace Restaurant.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public IActionResult Menu() {
+            var Dishes = _context.Dishes.ToList();
+
+            return View(Dishes); 
+        }
+        
 
         public IActionResult Privacy()
         {

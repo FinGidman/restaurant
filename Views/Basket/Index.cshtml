@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Restaurant.Models.Data.Item>
+    ViewBag.Title = "Menu page";
+}
+<div class="container-fluid" style="padding:0">
+    <h2 class="container-fluid" style="background-color:#990000; padding: 16px 0 24px 0; color:white" align="center">Ваша корзина</h2>
+    <div class="row container" style="margin: auto">
+        <table class="container-fluid table table-active" style="font-size:14pt">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Блюдо</th>
+                    <th scope="col">Количество</th>
+                    <th scope="col">Цена</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var line in Model)
+                {
+                    <tr class="table-item">
+                        <td>@line.Dish.Name</td>
+                        <td>@line.Count</td>
+                        <td>@((line.Count * line.Dish.Price).ToString("# руб."))</td>
+                        <td style="margin: auto">
+                            @using (Html.BeginForm("Remove", "Basket"))
+                            {
+                                @Html.Hidden("id", line.Dish.Id)
+                                <input class="btn btn-sm btn-warning" type="submit" value="Удалить" />
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr style="font-weight:bold">
+                    <td colspan="3" class="text-right">Итого: </td>
+                    <td>
+                        @ViewBag.Sum;
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="row container" style="margin: auto; margin-top: 24px">
+        @if (Model.Count() != 0)
+        {
+            @Html.ActionLink("Заказать", "Order", "Home", new { @class = "btn btn-success", @style = "margin-right: 20px" })
+        }
+        else
+        {
+            <a href="#" class="btn btn-success" style="margin-right: 20px" id="btnSubmit">Заказать</a>
+        }
+        @Html.ActionLink("Вернуться к меню", "Menu", "Home", new { @class = "btn btn-dark" })
+    </div>
+    <div class="row container" style="margin: auto;margin-top: 16px;">
+        <div id="Alert" class="alert alert-danger collapse">
+            <a id="linkClose" href="#" class="close">&times;</a>
+            <strong>Ошибка!</strong>
+            Вы не можете сделать заказ. Ваша корзина пуста!
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#btnSubmit').click(function () {
+                $('#Alert').show('fade');
+
+                setTimeout(function () {
+                    $('#Alert').hide('fade');
+                }, 3000);
+            });
+
+            $("#linkClose").click(function () {
+                $('#Alert').hide('fade');
+            });
+        });
+    </script>
+</div>

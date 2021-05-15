@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Restaurant.Models;
-using Restaurant.Models;
 using Restaurant.Models.Data;
 using System;
 using System.Collections.Generic;
@@ -29,12 +28,8 @@ namespace Restaurant.Controllers
         }
 
         [HttpGet]
-        public IActionResult Menu() {
-            var Dishes = _context.Dishes.ToList();
-
-            return View(Dishes); 
-        }
-        
+        public IActionResult  Menu() =>  View(_context.Dishes.ToList()); 
+        public IActionResult  Booking() =>  View(_context.Tables.ToList()); 
 
         public IActionResult Privacy()
         {

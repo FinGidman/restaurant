@@ -10,11 +10,11 @@ namespace Restaurant.Models.Data
     public class Table
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
-        [Required]
-        public int Number { get; set; }
+        //[Required]
+        //public int Number { get; set; }
 
         [Required]
         public int Seats { get; set; }

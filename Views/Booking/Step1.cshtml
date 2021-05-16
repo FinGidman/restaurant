@@ -1,0 +1,20 @@
+﻿@model Restaurant.ViewModels.Step1ViewModel
+<div class="row m-auto">
+    <form method="post" asp-controller="Booking" asp-action="Step1"
+          asp-route-returnUrl="@Model.ReturnUrl">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div>
+            <label asp-for="Date"></label><br />
+            <input type="date" asp-for="Date" />
+            <span asp-validation-for="Date"></span>
+        </div>
+        <div>
+            <label asp-for="Persons"></label><br />
+            <input type="number" min="1" max="12" asp-for="Persons" />
+            <span asp-validation-for="Persons"></span>
+        </div>
+        <div>
+            <input type="submit" value="Найти столы"/>
+        </div>
+    </form>
+</div>

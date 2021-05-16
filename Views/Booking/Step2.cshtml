@@ -1,18 +1,10 @@
 ﻿@model IEnumerable<Restaurant.Models.Data.Table>
-<div class="row m-auto">
-    <div class="col-md-6">
-        <select>
-            <option>1</option>
-            <option>1</option>
-            <option>1</option>
-            <option>1</option>
-        </select>
-    </div>
-    <div class="col-md-5">
-        <input type="date"/>
-    </div>
-</div>
+@{
+    DateTime date = Convert.ToDateTime(ViewData["Date"]);
+    int persons = Convert.ToInt32(ViewData["Persons"]);
+}
 <div class="container mt-3">
+
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1035.74798 1047.00502">
         <g>
             <rect x="454" y="444.00502" width="50" height="3" style="fill:gray" />
@@ -482,13 +474,12 @@
             <path d="M992.0003,634h21.99949V619.99992q-10.99984.01295-21.99958.02588Q992.00021,627.0129,992.0003,634Z" transform="translate(-287 -1.99498)" style="fill:#b3b3b3;stroke:#000;stroke-miterlimit:10;stroke-width:1.5px" />
             <path d="M1038.0003,634h21.99949V619.99992q-10.99985.01295-21.99958.02588Q1038.00021,627.0129,1038.0003,634Z" transform="translate(-287 -1.99498)" style="fill:#b3b3b3;stroke:#000;stroke-miterlimit:10;stroke-width:1.5px" />
         </g>
-        @{ 
-            foreach (var d in Model)
+            @foreach (var m in Model)
             {
-                <path d="@d.SvgPath" fill="lime" opacity="0.4" />
+                <a href="@Url.Action("Step3","Booking", new { @id = m.Id, @date = date, @persons = persons})">
+                    <path d="@m.SvgPath" fill="lime" opacity="0.2" />
+                </a>
             }
-        }
+          
     </svg>
 </div>
-@{
-}

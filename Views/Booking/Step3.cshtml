@@ -1,0 +1,54 @@
+﻿@model Restaurant.ViewModels.Step3ViewModel
+<div class="row m-auto">
+    <form method="post" asp-controller="Booking" asp-action="Step3">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div>
+            <label asp-for="Date"></label><br />
+            <input type="text" asp-for="Date" value="@Model.Date.Date" readonly />
+        </div>
+        <div>
+            <label asp-for="TableId"></label><br />
+            <input type="text" asp-for="TableId" value="@Model.TableId" readonly />
+        </div>
+        <div>
+            <label asp-for="Persons"></label><br />
+            <input type="text" asp-for="Persons" value="@Model.Persons" readonly />
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label asp-for="Hours"></label><br />
+                <select asp-for="Hours">
+                    @{
+                        for (int i = 10; i < 18; i++)
+                        {
+                            <option>@i</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="Hours"></span>
+            </div>
+            <div class="col">
+                <label asp-for="Minutes"></label><br />
+                <select asp-for="Minutes">
+                    @{
+                        for (int i = 0; i < 60; i += 5)
+                        {
+                            <option>@i</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="Minutes"></span>
+            </div>
+        </div>
+        <div>
+            <label asp-for="Comment"></label><br />
+            <textarea asp-for="Comment" cols="10" rows="10"></textarea>
+            <span asp-validation-for="Comment"></span>
+        </div>
+
+        <div>
+            <input type="submit" value="Заказать" />
+        </div>
+    </form>
+</div>

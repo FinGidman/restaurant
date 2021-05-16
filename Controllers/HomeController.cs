@@ -29,7 +29,6 @@ namespace Restaurant.Controllers
 
         [HttpGet]
         public IActionResult  Menu() =>  View(_context.Dishes.ToList()); 
-        public IActionResult  Booking() =>  View(_context.Tables.ToList()); 
 
         public IActionResult Privacy()
         {

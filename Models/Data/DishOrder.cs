@@ -18,9 +18,10 @@ namespace Restaurant.Models.Data
         [ForeignKey("UserId")]
         public string UserId { get; set; }
 
-        public bool Active { get; set; }
+        [ForeignKey("TableId")]
+        public int TableId { get; set; }
 
-        public int TableNumber { get; set; }
+        public bool Active { get; set; }
 
         [Column(TypeName ="nvarchar(10)")]
         public string OrderType { get; set; }
@@ -30,9 +31,10 @@ namespace Restaurant.Models.Data
         [Required, Column(TypeName = "nvarchar(250)")]
         public string Comment { get; set; }
 
-        [Column(TypeName = "nvarchar(100)")]
-        public string OrderList { get; set; }
+        [Column(TypeName = "nvarchar(MAX)")]
+        public string OrderListJson { get; set; }
         //
         public User User { get; set; }
+        public Table Table { get; set; }
     }
 }

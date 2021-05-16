@@ -21,9 +21,16 @@ namespace Restaurant.Controllers
         public IActionResult Index()
         {
             var cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
-            decimal sum = cart.Sum(i => i.Count * i.Dish.Price);
-            ViewBag.Sum = sum;
-            return View(cart);
+            if(cart != null)
+            {
+                ViewBag.Sum = cart.Sum(i => i.Count * i.Dish.Price);
+                return View(cart);
+            }
+            else
+            {
+                ViewBag.Sum = 0;
+                return View();
+            }        
         }
 
         public IActionResult Add(int id)

@@ -55,11 +55,8 @@
     <div class="row container" style="margin: auto; margin-top: 24px">
         @if (Model != null && Model.Count() != 0)
         {
-            @Html.ActionLink("Заказать", "Order", "Home", new { @class = "btn btn-success", @style = "margin-right: 20px" })
+            @Html.ActionLink("Заказать", "Order", "Basket", new { @class = "btn btn-success", @style = "margin-right: 20px" })
         }
-        else
-        {
-        }       
         @Html.ActionLink("Вернуться к меню", "Menu", "Home", new { @class = "btn btn-dark" })
     </div>
     <div class="row container" style="margin: auto;margin-top: 16px;">

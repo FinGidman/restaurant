@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Restaurant.Models;
 using Restaurant.Models.Data;
 using Restaurant.ViewModels;
@@ -12,10 +14,12 @@ namespace Restaurant.Controllers
     public class BasketController : Controller
     {
         private ApplicationContext _context;
+        private readonly UserManager<User> _user;
 
-        public BasketController(ApplicationContext context)
+        public BasketController(ApplicationContext context, UserManager<User> user)
         {
             _context = context;
+            _user = user;
         }
 
         public IActionResult Index()
@@ -83,6 +87,64 @@ namespace Restaurant.Controllers
             }
             SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
             return RedirectToAction("Index","Basket");
+        }
+
+        [HttpGet]
+        public IActionResult Order()
+        {
+            var tables = _context.TableOrders.Where(t => t.UserId == _user.GetUserId(User) && t.Active == true);
+            if (tables != null)
+            {
+                return View(new OrderDishViewModel { OrderedTables = tables.ToList()});
+            }
+            else
+            {
+                return View(new OrderDishViewModel { OrderedTables = null });
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Order(OrderDishViewModel model)
+        {
+            string orderList = SessionHelper.GetObjectInString(HttpContext.Session, "cart");
+            if(model.Comment == null)
+            {
+                model.Comment = "";
+            }
+            if (model.Type == "In")
+            {
+                DishOrder dishOrder = new DishOrder
+                {
+                    UserId = _user.GetUserId(User),
+                    TableId = model.TableId,
+                    Active = true,
+                    OrderType = "in",
+                    OrderTime = DateTime.Now,
+                    Comment = model.Comment,
+                    OrderListJson = orderList
+                };
+                _context.Entry(dishOrder).State = EntityState.Added;
+                _context.SaveChanges();
+                //SessionHelper.ClearObject(HttpContext.Session, "cart");
+            }
+            else if(model.Type == "Out")
+            {
+                DishOrder dishOrder = new DishOrder
+                {
+                    UserId = _user.GetUserId(User),
+                    TableId = 0,
+                    Active = true,
+                    OrderType = "out",
+                    OrderTime = DateTime.Now,
+                    Comment = model.Comment,
+                    OrderListJson = orderList
+                };
+                _context.Entry(dishOrder).State = EntityState.Added;
+                _context.SaveChanges();
+                //SessionHelper.ClearObject(HttpContext.Session, "cart");
+            }
+
+            return RedirectToAction("Menu", "Home");
         }
     }
 }

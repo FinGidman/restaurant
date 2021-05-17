@@ -1,0 +1,40 @@
+﻿@model Restaurant.ViewModels.OrderDishViewModel; 
+<div>
+    <form method="post" asp-controller="Basket" asp-action="Order">
+        <div asp-validation-summary="ModelOnly"></div>
+
+        @if (Model.OrderedTables != null)
+        {
+            <div>
+                <label>На вынос</label><br />
+                <input type="radio" asp-for="Type" name="type" value="Out" />
+                <br />
+                <label>На стол</label><br />
+                <input type="radio" asp-for="Type" name="type" value="In" />
+            </div>
+            <div>
+                <label asp-for="OrderedTables"></label><br />
+                <select asp-for="TableId">
+                    @foreach (var table in Model.OrderedTables)
+                    {
+                        <option>@table.TableId</option>
+                    }
+                </select>
+            </div>
+        }
+        else
+        {
+            <div>
+                <label>На вынос</label><br />
+                <input type="radio"  asp-for="Type" name="type" value="Out" />
+                <br />
+            </div>
+        }
+        <div>
+            <label asp-for="Comment"></label><br />
+            <textarea asp-for="Comment" cols="10" rows="10"></textarea>
+            <span asp-validation-for="Comment"></span>
+        </div>
+        <input type="submit" value="Заказать" />
+    </form>
+</div>

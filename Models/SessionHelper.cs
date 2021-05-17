@@ -19,5 +19,16 @@ namespace Restaurant.Models
             var value = session.GetString(key);
             return value == null ? default(T) : JsonConvert.DeserializeObject<T>(value);
         }
+
+        public static string GetObjectInString(this ISession session, string key)
+        {
+            var value = session.GetString(key);
+            return value;
+        }
+
+        public static void ClearObject(this ISession session, string key)
+        {
+            session.ClearObject(key);
+        }
     }
 }

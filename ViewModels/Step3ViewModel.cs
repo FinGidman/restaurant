@@ -11,7 +11,7 @@ namespace Restaurant.ViewModels
         public string UserId { get; set; }
 
         [Display(Name = "Дата")]
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
 
         [Display(Name = "Номер столика")]
         public int TableId { get; set; }
@@ -30,5 +30,7 @@ namespace Restaurant.ViewModels
         [Required]
         [Display(Name = "Комментарий")]
         public string Comment { get; set; }
+
+        public bool Checkbox { get; set; }
     }
 }

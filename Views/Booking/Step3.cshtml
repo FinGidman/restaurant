@@ -4,7 +4,7 @@
         <div asp-validation-summary="ModelOnly"></div>
         <div>
             <label asp-for="Date"></label><br />
-            <input type="text" asp-for="Date" value="@Model.Date.Date" readonly />
+            <input type="text" asp-for="Date" value="@Model.Date" readonly />
         </div>
         <div>
             <label asp-for="TableId"></label><br />
@@ -45,6 +45,10 @@
             <label asp-for="Comment"></label><br />
             <textarea asp-for="Comment" cols="10" rows="10"></textarea>
             <span asp-validation-for="Comment"></span>
+        </div>
+        <div>
+            <label>Заказаь блюда на стол</label><br />
+            <input asp-for="Checkbox" type="checkbox" />
         </div>
 
         <div>

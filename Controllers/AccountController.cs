@@ -13,11 +13,13 @@ namespace Restaurant.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
         }
 
         [HttpGet]
@@ -33,6 +35,9 @@ namespace Restaurant.Controllers
             {
                 User user = new User { Email = model.Email, UserName = model.Email, PersonName = model.PersonName, PersonSurname = model.PersonSurname };
                 var result = await _userManager.CreateAsync(user, model.Password);
+                var newUser = await _userManager.FindByEmailAsync(model.Email);
+                await _userManager.AddToRoleAsync(newUser, "user");
+
                 if (result.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, false);

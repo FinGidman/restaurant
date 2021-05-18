@@ -69,3 +69,46 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+.row-padding {
+    padding-top: 210px;
+    padding-bottom: 90px;
+}
+
+.font-style-1 {
+    font-size: 12pt;
+    width: 100%;
+}
+
+.ul-no-markers {
+    list-style: none;
+}
+
+.header-high {
+    font-size: 60px;
+}
+
+.margin-right-1 {
+    padding-right: 140px;
+}
+
+.margin-50 {
+    margin: 110px;
+}
+
+.btn-order {
+    height: 60px;
+    width: 200px;
+    background-color: #E22104;
+    font-size: 14pt;
+    color: white;
+    border: solid #E22104 3px;
+    border-radius: 30px;
+    box-shadow: 0 10px 25px 0 #808080;
+    transition-property: font-size;
+    transition-duration: 0.5s;
+}
+
+    .btn-order:hover {
+        font-size: 16pt;
+    }

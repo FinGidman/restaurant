@@ -1,0 +1,84 @@
+﻿@using Newtonsoft.Json;
+@model IEnumerable<Restaurant.Models.Data.DishOrder>
+<table>
+    <thead>
+        <tr>
+            <td>№ заказа</td>
+            <td>Состояние</td>
+            <td>Тип</td>
+            <td>Стол</td>
+            <td>Время</td>
+            <td>Список</td>
+            <td>Комментарий</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var d in Model)
+        {
+            <tr>
+                <td>@d.Id</td>
+                @if (d.Active == true)
+                {
+                    <td><span style="color: green">Активен</span></td>
+                }
+                else
+                {
+                    <td><span style="color: red">Доставлен</span></td>
+                }
+                @if (d.OrderType == "out")
+                {
+                    <td>На вынос</td>
+                }
+                else
+                {
+                    <td>На стол</td>
+                }
+                <td>@d.OrderTime</td>
+                <td>
+                    @d.Comment
+                </td>
+                <td>                  
+                    <a class="btn btn-primary" data-toggle="collapse" href="#collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        Блюда
+                    </a>
+                    <div class="collapse" id="collapse">
+                        <table>
+                            @{var res = JsonConvert.DeserializeObject<List<Item>>(d.OrderListJson);
+                                foreach(var r in res)
+                                {
+                                    <tr>
+                                        <td>@r.Dish.Name</td>
+                                        <td>@r.Dish.Price</td>
+                                        <td>@r.Count</td>
+                                    </tr>
+                                }
+                                <tfoot>
+                                    <tr>
+                                        @{ 
+                                            var total = res.Sum(r => (r.Dish.Price * r.Count));
+                                        } 
+                                        <td>@total</td>
+                                    </tr>
+                                </tfoot>
+                            }
+                        </table>
+                    </div>
+                    
+                    
+                </td>
+                <td>
+                    @if (@d.Active == true)
+                    {
+                        <a type="button" class="btn btn-warning"
+                           data-ajax="true"
+                           data-ajax-update="#table"
+                           data-ajax-mode="replace"
+                           href="@Url.Action("CloseDishOrder", "Users", new { @id = d.Id })">Отменить</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

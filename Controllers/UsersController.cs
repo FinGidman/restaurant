@@ -12,13 +12,60 @@ namespace Restaurant.Controllers
     public class UsersController : Controller
     {
         UserManager<User> _userManager;
+        RoleManager<IdentityRole> _roleManager;
+        ApplicationContext _context;
 
-        public UsersController(UserManager<User> userManager)
+        public UsersController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, ApplicationContext context)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
+            _context = context;
         }
 
-        public IActionResult Index() => View(_userManager.Users.ToList());
+        public async Task<IActionResult> Index()
+        {
+            var userId = _userManager.GetUserId(User);
+            var user = await _userManager.FindByIdAsync(userId);
+            var userRole = await _userManager.GetRolesAsync(user);
+                  
+                return View(_userManager.Users.ToList());          
+        }
+
+        ///////////////////////////////////////////
+
+        public IActionResult OrderedDishesPartial()
+        {
+            var orderedDishes = _context.DishOrders.Where(t => t.UserId == _userManager.GetUserId(User)).OrderByDescending(t => t.Active);
+            return PartialView("_OrderedDishes",orderedDishes);
+        }
+
+        public IActionResult OrderedTablesPartial()
+        {
+            var orderedTables = _context.TableOrders.Where(t => t.UserId == _userManager.GetUserId(User)).OrderByDescending(t => t.Active);
+            return PartialView("_OrderedTables",orderedTables);
+        }
+
+        public IActionResult CloseDishOrder(int id)
+        {
+            var order = _context.DishOrders.Find(id);
+            order.Active = false;
+            _context.DishOrders.Update(order);
+            _context.SaveChanges();
+            var orderedDishes = _context.DishOrders.Where(t => t.UserId == _userManager.GetUserId(User)).OrderByDescending(t => t.Active);
+            return PartialView("_OrderedDishes", orderedDishes);
+        }
+
+        public IActionResult CloseTableOrder(int id)
+        {
+            var order = _context.TableOrders.Find(id);
+            order.Active = false;
+            _context.TableOrders.Update(order);
+            _context.SaveChanges();
+            var orderedTables = _context.TableOrders.Where(t => t.UserId == _userManager.GetUserId(User)).OrderByDescending(t => t.Active);
+            return PartialView("_OrderedTables", orderedTables);
+        }
+
+        ///////////////////////////////////////////
 
         public IActionResult Create() => View();
 

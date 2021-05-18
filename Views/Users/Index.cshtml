@@ -40,9 +40,27 @@ else if (User.Identity.IsAuthenticated && User.IsInRole("employee"))
 {
     <h2>Hello employee!</h2>
 }
-else
+else if (User.Identity.IsAuthenticated && User.IsInRole("user"))
 {
-    <h2>hello user!</h2>
-    <a>Данные пользователя</a>
-    <a>Данные о заказах</a>
+    <form method="post" asp-controller="Account" asp-action="Logout">
+        <input type="submit" value="Выход" />
+    </form>
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link"
+               data-ajax="true"
+               data-ajax-update="#table"
+               data-ajax-mode="replace"
+               href="@Url.Action("OrderedDishesPartial","Users")">Заказы</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link"
+               data-ajax="true"
+               data-ajax-update="#table"
+               data-ajax-mode="replace"
+               href="@Url.Action("OrderedTablesPartial","Users")">Столы</a>
+        </li>
+    </ul>
+    <div style="max-height: 600px; overflow-x:hidden; overflow-y:auto" class="container" id="table"></div>
 }

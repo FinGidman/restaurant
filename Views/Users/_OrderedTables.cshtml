@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Restaurant.Models.Data.TableOrder>
+<table>
+    <thead>
+        <tr>
+            <td>№ стола</td>
+            <td>Гости</td>
+            <td>Состояние</td>
+            <td>Время заказа</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var d in Model)
+        {
+        <tr>
+            <td>@d.Id</td>
+            <td>@d.Persons</td>
+            @if (d.Active == true)
+            {
+                <td><span style="color: green">Активен</span></td>
+            }
+            else
+            {
+                <td><span style="color: red">Не активен</span></td>
+            }
+            <td>@d.OrderTime</td>
+            <td>
+                @if (@d.Active == true)
+                {
+                    <a type="button" class="btn btn-warning"
+                       data-ajax="true"
+                       data-ajax-update="#table"
+                       data-ajax-mode="replace"
+                       href="@Url.Action("CloseTableOrder", "Users", new { @id = d.Id })">Отменить</a>
+                }
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

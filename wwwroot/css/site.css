@@ -59,8 +59,9 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    color: #2f2d4e;
 }
 .footer {
   position: absolute;
@@ -96,6 +97,10 @@ body {
     margin: 110px;
 }
 
+.bg-lightred {
+    background-color: #E22104;
+}
+
 .btn-order {
     height: 60px;
     width: 200px;
@@ -109,6 +114,44 @@ body {
     transition-duration: 0.5s;
 }
 
-    .btn-order:hover {
-        font-size: 16pt;
-    }
+.btn-order:hover {
+    font-size: 16pt;
+}
+
+.hr-style-1 {
+    height: 2px;
+    background-color: #E22104;
+    border: none;
+}
+
+.map-1 {
+    position: relative;
+    overflow: hidden;
+}
+
+.map-2 {
+    color: #eee;
+    font-size: 12px;
+    position: absolute;
+    top: 0px;
+}
+
+.map-3 {
+    color: #eee;
+    font-size: 12px;
+    position: absolute;
+    top: 14px;
+}
+
+.map-4 {
+    position: relative;
+}
+
+.max-h {
+    width: 100vw;
+    min-height: 100vh;
+}
+
+.nomarkers {
+    list-style: none;
+}

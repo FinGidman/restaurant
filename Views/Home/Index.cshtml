@@ -2,7 +2,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
+@*<div class="text-center">
     <h1 class="display-4">Welcome</h1>
     @if (User.Identity.IsAuthenticated)
     {
@@ -17,16 +17,16 @@
         <a asp-controller="Account" asp-action="Login">Вход</a>
         <a asp-controller="Account" asp-action="Register">Регистрация</a>
     }
-</div>
+</div>*@
 
 <div class="mt-5">
     <div class="container-fluid p-0">
         <div class="row">
             <div class="col-sm-5">
                 <div class="row-padding pr-5">
-                    <h1 class="header-high hblue">Food the most precious thing!</h1>
+                    <h1 class="header-high hblue">Food is the most precious thing!</h1>
                     <div>
-                        <button class="btn btn-order mx-auto mt-4" href="#"> Book now!</button>
+                        <button class="btn-order mx-auto mt-4" href="#">Order now!</button>
                     </div>
                 </div>
                 <div class="p-0">
@@ -50,9 +50,9 @@
             </div>
             <div class="col-sm-6">
                 <div class="row-padding pr-5">
-                    <h1 class="header-high text-end hblue">Order delicious dishes right now!</h1>
+                    <h1 class="header-high text-end hblue">Feel the atmosphere of our restaurant</h1>
                     <div class="ml-1">
-                        <button class="btn-order mx-auto mt-4" href="#"> Order now!</button>
+                        <button class="btn-order mx-auto mt-4" href="#">Book now!</button>
                     </div>
                 </div>
             </div>
@@ -61,7 +61,7 @@
 
     <div class="margin-50"></div>
 
-    <div class="container-fluid p-0">
+    @*<div class="container-fluid p-0">
         <div class="row">
             <h2 class="col-sm-2 pr-0"> About us </h2>
             <div class="col-md container-fluid p-0 m-0"><hr class="mt-4 hr-style-1" /></div>
@@ -100,7 +100,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>*@
 
     <div class="margin-50"></div>
 

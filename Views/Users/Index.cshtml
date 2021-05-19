@@ -42,9 +42,16 @@ else if (User.Identity.IsAuthenticated && User.IsInRole("employee"))
 }
 else if (User.Identity.IsAuthenticated && User.IsInRole("user"))
 {
-    <form method="post" asp-controller="Account" asp-action="Logout">
-        <input type="submit" value="Выход" />
-    </form>
+<div class="row">
+    <div class="col-md">
+        Управление профилем
+    </div>
+    <div class="col-sm">
+        <form method="post" asp-controller="Account" asp-action="Logout">
+            <input type="submit" value="Выйти из профиля" />
+        </form>
+    </div>
+</div>
 
     <ul class="nav nav-tabs">
         <li class="nav-item">

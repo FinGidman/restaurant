@@ -23,8 +23,20 @@
         foreach (var d in Model)
         {
             <div class="col">
-                    <div class="card m-1 p-0" style="max-width: 640px; max-height:240px">
-                            <div class="row g-0">
+                    <div class="card m-1 p-0" style="max-width: 640px; max-height:840px">
+                            <div class="card-img-top">
+                                <img src=@d.Photo class="img-fluid" alt=@d.Name style="max-height: 240px; min-width: 180px" />
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">@d.Name</h5>
+                                <p class="card-text">@d.Description</p>
+                                <p class="card-text">@d.Price</p>
+                                <form method="post" asp-action="Add" asp-controller="Basket">
+                                    <input hidden="hidden" readonly="readonly" name="id" type="text" value="@d.Id" />
+                                    <button class="btn btn-info" type="submit">Добавить</button>
+                                </form>
+                            </div>
+                            @*<div class="row g-0">
                                 <div class="col-md-4 col-lg-4">
                                     <img src=@d.Photo class="img-fluid" alt=@d.Name style="max-height: 240px; min-width: 180px" />
                                 </div>
@@ -40,7 +52,7 @@
                                         </form>
                                     </div>
                                 </div>
-                            </div>
+                            </div>*@
                     </div>
             </div>
         }

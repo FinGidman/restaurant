@@ -1,10 +1,24 @@
 ﻿@model IEnumerable<Restaurant.Models.Data.Table>
 @{
     DateTime date = Convert.ToDateTime(ViewData["Date"]);
+    
     int persons = Convert.ToInt32(ViewData["Persons"]);
 }
 <div class="container mt-3">
-
+    <div class="row">
+        <div class="col-sm">
+            <a
+               data-ajax="true"
+               data-ajax-update="#steplayout"
+               data-ajax-mode="replace"
+               href="@Url.Action("Step1","Booking")"
+               ><u>Вернуться к выбору даты</u></a>
+        </div>
+        <div class="col-md">
+            <div class="col-sm">Столы на: @date</div>
+            <div class="col-sm">Гостей: @persons</div>
+        </div>
+    </div>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1035.74798 1047.00502">
         <g>
             <rect x="454" y="444.00502" width="50" height="3" style="fill:gray" />
@@ -474,12 +488,30 @@
             <path d="M992.0003,634h21.99949V619.99992q-10.99984.01295-21.99958.02588Q992.00021,627.0129,992.0003,634Z" transform="translate(-287 -1.99498)" style="fill:#b3b3b3;stroke:#000;stroke-miterlimit:10;stroke-width:1.5px" />
             <path d="M1038.0003,634h21.99949V619.99992q-10.99985.01295-21.99958.02588Q1038.00021,627.0129,1038.0003,634Z" transform="translate(-287 -1.99498)" style="fill:#b3b3b3;stroke:#000;stroke-miterlimit:10;stroke-width:1.5px" />
         </g>
-            @foreach (var m in Model)
-            {
-                <a href="@Url.Action("Step3","Booking", new { @id = m.Id, @date = date, @persons = persons})">
-                    <path d="@m.SvgPath" fill="lime" opacity="0.2" />
-                </a>
-            }
-          
+        @foreach (var m in Model)
+        {           
+            <a class="tablelink"
+               tableid="@m.Id">
+                <path d="@m.SvgPath" fill="lime" opacity="0.5" />
+            </a>
+        }
+
     </svg>
 </div>
+<script type="text/javascript">
+    $('.tablelink').click(function (e) {
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("Step3", "Booking")",
+                data: { id: $(this).attr('tableid'), date: '@date.ToString()', persons: @persons},
+                dataType: "text",
+                success: function (msg) {
+                    console.log(msg);
+                    $("#steplayout").replaceWith(msg);
+                },
+                error: function (req, status, error) {
+                    console.log(msg);
+                }
+            });
+    });
+</script>

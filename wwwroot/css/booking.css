@@ -1,0 +1,43 @@
+﻿.circle-b{
+    border-color: black;
+    border-width: 4px;
+    border-style: solid;
+    border-radius: 50%;
+    min-height: 40px;
+    max-height: 40px;
+    min-width: 40px;
+    max-width: 40px;
+}
+
+.circle-bw {
+    color: white;
+    border-color: white;
+    border-width: 4px;
+    border-style: solid;
+    border-radius: 50%;
+    min-height: 40px;
+    max-height: 40px;
+    min-width: 40px;
+    max-width: 40px;
+}
+
+.arrow-active {
+    color: white;
+    background-color: #E22104;
+}
+
+    .arrow-active::before {
+        position: absolute;
+        content: '';
+        left: -30px;
+        border: 35px solid;
+        border-color: #E22104 #E22104 #E22104 white;
+    }
+
+    .arrow-active::after {
+        position: absolute;
+        content: '';
+        left: 0px;
+        border: 35px solid;
+        border-color: white white white #E22104;
+    }

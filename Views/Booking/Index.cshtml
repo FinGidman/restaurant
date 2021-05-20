@@ -1,0 +1,38 @@
+﻿@model Restaurant.ViewModels.Step1ViewModel
+<div class="container mt-2 mb-2">
+    <h1 class="text-center">Бронирование</h1>
+    <div class="mt-4 mb-3" id="menu">
+        <div class="row">
+            <div class="col row mx-2 py-4 px-0 align-middle arrow-active">
+                <div class="h4 col-1 p-0 m-0 circle-bw text-center">
+                    1
+                </div>
+                <div class="h3 m-0 col align-middle">
+                    Выбор даты
+                </div>
+            </div>
+
+            <div class="col row mx-2 py-4 px-0 align-middle">
+                <div class="h4 col-1 p-0 m-0 circle-b text-center">
+                    2
+                </div>
+                <div class="h3 m-0 col align-middle">
+                    Выбор стола
+                </div>
+            </div>
+
+            <div class="col row mx-2 py-4 px-0 align-middle">
+                <div class="h4 col-1 p-0 m-0 circle-b text-center">
+                    3
+                </div>
+                <div class="h3 m-0 col align-middle">
+                    Финал
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div id="steplayout">
+        @await Html.PartialAsync("_Step1")
+    </div>
+</div>

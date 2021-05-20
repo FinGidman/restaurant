@@ -24,16 +24,21 @@ namespace Restaurant.Controllers
             _user = user;
         }
 
-        [HttpGet]
-        public IActionResult Step1(string returnUrl = null)
+        public IActionResult Index()
         {
-            return View(new Step1ViewModel { ReturnUrl = returnUrl });
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Step1()
+        {
+            return PartialView("_Step1");
         }
 
         [HttpPost]
         public IActionResult Step1(Step1ViewModel model)
         {
-            return RedirectToAction("Step2", "Booking", model);
+            return RedirectToAction("Step2", model);
         }
 
         /////////////////////////////////////////////
@@ -54,10 +59,10 @@ namespace Restaurant.Controllers
             if (orderedTables != null)
             {
                 var tables = freeTables.Where(x => !orderedTables.Any(b => b == x.Id));
-                return View(tables);
+                return PartialView("_Step2",tables);
             }
             else
-                return View(freeTables);
+                return PartialView("_Step2",freeTables);
         }
 
         //[HttpPost]
@@ -69,10 +74,10 @@ namespace Restaurant.Controllers
         /////////////////////////////////////////////
 
         [HttpGet]
-        public IActionResult Step3(int id, DateTime date, int persons)
+        public IActionResult Step3(int id, string date, int persons)
         {
-            string dt = date.ToString("dd-MM-yyyy");
-            return View(new Step3ViewModel { TableId = id, Date = dt, Persons = persons });
+            //string dt = date.ToString("dd-MM-yyyy");
+            return PartialView("_Step3",new Step3ViewModel { TableId = id, Date = date, Persons = persons });
         }
 
         [HttpPost]
@@ -108,21 +113,24 @@ namespace Restaurant.Controllers
                 if (model.Checkbox == true)
                 {
                     string orderList = SessionHelper.GetObjectInString(HttpContext.Session, "cart");
-                    DishOrder dishOrder = new DishOrder
+                    if (orderList != null)
                     {
-                        UserId = _user.GetUserId(User),
-                        TableId = model.TableId,
-                        Active = true,
-                        OrderType = "in",
-                        OrderTime = DateTime.Now,
-                        Comment = "",
-                        OrderListJson = orderList
-                    };
-
+                        DishOrder dishOrder = new DishOrder
+                        {
+                            UserId = _user.GetUserId(User),
+                            TableId = model.TableId,
+                            Active = true,
+                            OrderType = "in",
+                            OrderTime = DateTime.Now,
+                            Comment = "",
+                            OrderListJson = orderList
+                        };
+                        _context.Entry(dishOrder).State = EntityState.Added;
+                        _context.SaveChanges();
+                    }
                     _context.Entry(to).State = EntityState.Added;
                     _context.SaveChanges();
-                    _context.Entry(dishOrder).State = EntityState.Added;
-                    _context.SaveChanges();
+                    
                     SessionHelper.ClearObject(HttpContext.Session, "cart");
                 }
                 else

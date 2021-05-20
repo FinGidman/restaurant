@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - Restaurant</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/css/booking.css" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -25,7 +26,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Menu">Menu</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Booking" asp-action="Step1">Booking</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Booking" asp-action="Index">Booking</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Basket" asp-action="Index">Basket</a>
@@ -38,7 +39,7 @@
 
                 @if (!User.Identity.IsAuthenticated)
                 {
-                    <div class="navbar d-sm-inline-flex flex-sm-row">
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row">
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">
@@ -55,7 +56,7 @@
                 }
                 else if (User.Identity.IsAuthenticated)
                 {
-                    <div class="navbar d-sm-inline-flex flex-sm-row">
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row">
                         <ul class="navbar-nav flex-grow-1" asp-area="" asp-controller="Account" asp-action="Login">
                             <li class="nav-item text-dark">
                                 <a class="nav-link text-dark" asp-controller="Users" asp-action="Index">
@@ -72,7 +73,7 @@
         </nav>
     </header>
     <div class="container max-h">
-        <main role="main" class="pb-3">
+        <main role="main" class="min-vh-100 pb-3">
             @RenderBody()
         </main>
     </div>

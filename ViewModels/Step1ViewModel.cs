@@ -16,6 +16,5 @@ namespace Restaurant.ViewModels
         [Display(Name = "Количество гостей")]
         public int Persons { get; set; }
 
-        public string ReturnUrl { get; set; }
     }
 }

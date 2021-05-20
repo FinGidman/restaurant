@@ -35,11 +35,11 @@ namespace Restaurant.Controllers
             {
                 User user = new User { Email = model.Email, UserName = model.Email, PersonName = model.PersonName, PersonSurname = model.PersonSurname };
                 var result = await _userManager.CreateAsync(user, model.Password);
-                var newUser = await _userManager.FindByEmailAsync(model.Email);
-                await _userManager.AddToRoleAsync(newUser, "user");
-
+                
                 if (result.Succeeded)
                 {
+                    var newUser = await _userManager.FindByEmailAsync(model.Email);
+                    await _userManager.AddToRoleAsync(newUser, "user");
                     await _signInManager.SignInAsync(user, false);
                     return RedirectToAction("Index", "Home");
                 }

@@ -1,0 +1,33 @@
+﻿@model Restaurant.ViewModels.Step1ViewModel
+@{ 
+    string date = DateTime.Today.Year.ToString() + "-" +
+        DateTime.Today.Month.ToString() + "-" +
+        DateTime.Today.Day.ToString();
+}
+    <div class="my-50 d-flex flex-column">
+        @*<div class="row m-auto card col-sm-10 w-50 align-middle h-50"></div>*@
+        <div class="card w-50 ml-auto mr-auto ">
+            <form class="m-auto pt-5 pb-4"
+                  asp-action="Step1"
+                  asp-controller="Booking"
+                  data-ajax="true"
+                  data-ajax-method="POST"
+                  data-ajax-mode="replace"
+                  data-ajax-update="#steplayout">
+                <div asp-validation-summary="ModelOnly"></div>
+                <div class="form-group mb-3">
+                    <label class="col-sm" asp-for="Date"></label><br />
+                    <input class="form-control input-group-sm" type="date" min="@DateTime.Today" value="@date" asp-for="Date" />
+                    <span class="form-text text-muted" asp-validation-for="Date"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label class="col-sm" asp-for="Persons"></label><br />
+                    <input class="form-control input-group-sm" type="number" min="1" max="12" value="1" asp-for="Persons" />
+                    <span class="form-text text-muted" asp-validation-for="Persons"></span>
+                </div>
+                <div class="d-flex justify-content-center mt-5">
+                    <input class="btn btn-danger" type="submit" value="Найти столы" />
+                </div>
+            </form>
+        </div>
+    </div>

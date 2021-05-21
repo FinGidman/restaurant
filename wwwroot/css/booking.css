@@ -21,23 +21,30 @@
     max-width: 40px;
 }
 
+.arrow {
+    max-width: 280px;
+    max-height: 60px;
+}
+
 .arrow-active {
     color: white;
     background-color: #E22104;
+    max-width: 280px;
+    max-height: 60px;
 }
 
     .arrow-active::before {
         position: absolute;
         content: '';
         left: -30px;
-        border: 35px solid;
-        border-color: #E22104 #E22104 #E22104 white;
+        border: 30px solid;
+        border-color: #E22104 #E22104 #E22104 transparent;
     }
 
     .arrow-active::after {
         position: absolute;
         content: '';
-        left: 0px;
-        border: 35px solid;
+        left: 240px;
+        border: 30px solid;
         border-color: white white white #E22104;
     }

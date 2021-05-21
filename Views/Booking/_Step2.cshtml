@@ -1,18 +1,48 @@
 ﻿@model IEnumerable<Restaurant.Models.Data.Table>
 @{
     DateTime date = Convert.ToDateTime(ViewData["Date"]);
-    
+
     int persons = Convert.ToInt32(ViewData["Persons"]);
 }
+<div class="my-3 px-2" id="menu">
+    <div class="row col-md mx-0 d-flex justify-content-center" style="min-height:60px; max-height:180px">
+
+        <div class="col-sm row align-middle arrow mx-1 d-flex align-items-center">
+            <div class="h4 col-1 p-0 m-0 circle-b text-center">
+                1
+            </div>
+            <div class="h3 m-0 col align-middle">
+                Выбор даты
+            </div>
+        </div>
+
+        <div class="col-sm row arrow-active align-middle mx-1 d-flex align-items-center">
+            <div class="h4 col-1 p-0 m-0 circle-bw text-center">
+                2
+            </div>
+            <div class="h3 m-0 col align-middle">
+                Выбор стола
+            </div>
+        </div>
+
+        <div class="col-sm row arrow align-middle mx-1 d-flex align-items-center">
+            <div class="h4 col-1 p-0 m-0 circle-b text-center">
+                3
+            </div>
+            <div class="h3 m-0 col align-middle">
+                Финал
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
 <div class="container mt-3">
     <div class="row">
         <div class="col-sm">
-            <a
-               data-ajax="true"
+            <a data-ajax="true"
                data-ajax-update="#steplayout"
                data-ajax-mode="replace"
-               href="@Url.Action("Step1","Booking")"
-               ><u>Вернуться к выбору даты</u></a>
+               href="@Url.Action("Step1","Booking")"><u>Вернуться к выбору даты</u></a>
         </div>
         <div class="col-md">
             <div class="col-sm">Столы на: @date</div>
@@ -489,7 +519,7 @@
             <path d="M1038.0003,634h21.99949V619.99992q-10.99985.01295-21.99958.02588Q1038.00021,627.0129,1038.0003,634Z" transform="translate(-287 -1.99498)" style="fill:#b3b3b3;stroke:#000;stroke-miterlimit:10;stroke-width:1.5px" />
         </g>
         @foreach (var m in Model)
-        {           
+        {
             <a class="tablelink"
                tableid="@m.Id">
                 <path d="@m.SvgPath" fill="lime" opacity="0.5" />

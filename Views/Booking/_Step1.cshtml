@@ -1,33 +1,65 @@
 ﻿@model Restaurant.ViewModels.Step1ViewModel
-@{ 
+@{
     string date = DateTime.Today.Year.ToString() + "-" +
         DateTime.Today.Month.ToString() + "-" +
         DateTime.Today.Day.ToString();
 }
-    <div class="my-50 d-flex flex-column">
-        @*<div class="row m-auto card col-sm-10 w-50 align-middle h-50"></div>*@
-        <div class="card w-50 ml-auto mr-auto ">
-            <form class="m-auto pt-5 pb-4"
-                  asp-action="Step1"
-                  asp-controller="Booking"
-                  data-ajax="true"
-                  data-ajax-method="POST"
-                  data-ajax-mode="replace"
-                  data-ajax-update="#steplayout">
-                <div asp-validation-summary="ModelOnly"></div>
-                <div class="form-group mb-3">
-                    <label class="col-sm" asp-for="Date"></label><br />
-                    <input class="form-control input-group-sm" type="date" min="@DateTime.Today" value="@date" asp-for="Date" />
-                    <span class="form-text text-muted" asp-validation-for="Date"></span>
-                </div>
-                <div class="form-group mb-3">
-                    <label class="col-sm" asp-for="Persons"></label><br />
-                    <input class="form-control input-group-sm" type="number" min="1" max="12" value="1" asp-for="Persons" />
-                    <span class="form-text text-muted" asp-validation-for="Persons"></span>
-                </div>
-                <div class="d-flex justify-content-center mt-5">
-                    <input class="btn btn-danger" type="submit" value="Найти столы" />
-                </div>
-            </form>
+<div class="my-3 px-2" id="menu">
+    <div class="row col-md mx-0 d-flex justify-content-center" style="min-height:60px; max-height:180px">
+
+        <div class="col-sm row align-middle arrow-active mx-1 d-flex align-items-center">
+            <div class="h4 col-1 p-0 m-0 circle-bw text-center">
+                1
+            </div>
+            <div class="h3 m-0 col align-middle">
+                Выбор даты
+            </div>
+        </div>
+
+        <div class="col-sm row arrow align-middle mx-1 d-flex align-items-center">
+            <div class="h4 col-1 p-0 m-0 circle-b text-center">
+                2
+            </div>
+            <div class="h3 m-0 col align-middle">
+                Выбор стола
+            </div>
+        </div>
+
+        <div class="col-sm row arrow align-middle mx-1 d-flex align-items-center">
+            <div class="h4 col-1 p-0 m-0 circle-b text-center">
+                3
+            </div>
+            <div class="h3 m-0 col align-middle">
+                Финал
+            </div>
         </div>
     </div>
+</div>
+<hr />
+<div class="my-50 d-flex flex-column">
+    @*<div class="row m-auto card col-sm-10 w-50 align-middle h-50"></div>*@
+    <div class="card w-50 ml-auto mr-auto shadow">
+        <form class="m-auto pt-5 pb-4"
+              asp-action="Step1"
+              asp-controller="Booking"
+              data-ajax="true"
+              data-ajax-method="POST"
+              data-ajax-mode="replace"
+              data-ajax-update="#steplayout">
+            <div asp-validation-summary="ModelOnly"></div>
+            <div class="form-group mb-3">
+                <label class="col-sm card-title" asp-for="Date"></label><br />
+                <input class="form-control input-group-sm" type="date" min="@DateTime.Today" value="@date" asp-for="Date" />
+                <span class="form-text text-muted" asp-validation-for="Date"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label class="col-sm card-title" asp-for="Persons"></label><br />
+                <input class="form-control input-group-sm" type="number" min="1" max="12" value="1" asp-for="Persons" />
+                <span class="form-text text-muted" asp-validation-for="Persons"></span>
+            </div>
+            <div class="d-flex justify-content-center mt-5">
+                <input class="btn btn-danger" type="submit" value="Найти столы" />
+            </div>
+        </form>
+    </div>
+</div>

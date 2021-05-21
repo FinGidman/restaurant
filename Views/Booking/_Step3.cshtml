@@ -1,58 +1,95 @@
 ﻿@model Restaurant.ViewModels.Step3ViewModel
-<div class="row m-auto">
-    <form method="post" asp-controller="Booking" asp-action="Step3">
-        <div asp-validation-summary="ModelOnly"></div>
-        <div>
-            <label asp-for="Date"></label><br />
-            <input type="text" asp-for="Date" value="@Model.Date" readonly />
-        </div>
-        <div>
-            <label asp-for="TableId"></label><br />
-            <input type="text" asp-for="TableId" value="@Model.TableId" readonly />
-        </div>
-        <div>
-            <label asp-for="Persons"></label><br />
-            <input type="text" asp-for="Persons" value="@Model.Persons" readonly />
-        </div>
+    <div class="my-3 px-2" id="menu">
+        <div class="row col-md mx-0 d-flex justify-content-center" style="min-height:60px; max-height:180px">
 
-        <div class="row">
-            <div class="col">
-                <label asp-for="Hours"></label><br />
-                <select asp-for="Hours">
-                    @{
-                        for (int i = 10; i < 18; i++)
-                        {
-                            <option>@i</option>
-                        }
-                    }
-                </select>
-                <span asp-validation-for="Hours"></span>
+            <div class="col-sm row align-middle arrow mx-1 d-flex align-items-center">
+                <div class="h4 col-1 p-0 m-0 circle-b text-center">
+                    1
+                </div>
+                <div class="h3 m-0 col align-middle">
+                    Выбор даты
+                </div>
             </div>
-            <div class="col">
-                <label asp-for="Minutes"></label><br />
-                <select asp-for="Minutes">
-                    @{
-                        for (int i = 0; i < 60; i += 5)
-                        {
-                            <option>@i</option>
-                        }
-                    }
-                </select>
-                <span asp-validation-for="Minutes"></span>
+
+            <div class="col-sm row arrow align-middle mx-1 d-flex align-items-center">
+                <div class="h4 col-1 p-0 m-0 circle-b text-center">
+                    2
+                </div>
+                <div class="h3 m-0 col align-middle">
+                    Выбор стола
+                </div>
+            </div>
+
+            <div class="col-sm row arrow-active align-middle mx-1 d-flex align-items-center">
+                <div class="h4 col-1 p-0 m-0 circle-bw text-center">
+                    3
+                </div>
+                <div class="h3 m-0 col align-middle">
+                    Финал
+                </div>
             </div>
         </div>
-        <div>
-            <label asp-for="Comment"></label><br />
-            <textarea asp-for="Comment" cols="10" rows="10"></textarea>
-            <span asp-validation-for="Comment"></span>
-        </div>
-        <div>
-            <label>Заказаь блюда на стол</label><br />
-            <input asp-for="Checkbox" type="checkbox" />
-        </div>
+    </div>
+    <hr />
+    <div class="d-flex flex-column">
+        <div class="card w-50 ml-auto mr-auto shadow">
+            <form class="m-auto pt-5 pb-4 px-2" method="post" asp-controller="Booking" asp-action="Step3">
+                <div asp-validation-summary="ModelOnly"></div>
+                <div class="card p-3 bg-light">
+                    <div class="form-group row">
+                        <label class="col-sm card-title text-center" asp-for="Date"></label><br />
+                        <input class="col-sm mx-4 form-control" type="text" asp-for="Date" value="@Model.Date" readonly />
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm card-title text-center" asp-for="TableId"></label><br />
+                        <input class="col-sm mx-4 form-control" type="text" asp-for="TableId" value="@Model.TableId" readonly />
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm card-title text-center" asp-for="Persons"></label><br />
+                        <input class="col-sm mx-4 form-control" type="text" asp-for="Persons" value="@Model.Persons" readonly />
+                    </div>
+                </div>
 
-        <div>
-            <input type="submit" value="Заказать" />
+                <div class="row form-group mb-3 mt-2 d-flex justify-content-center">
+                    <div class="col-sm-3 form-group">
+                        <label asp-for="Hours"></label><br />
+                        <select class="form-control" asp-for="Hours">
+                            @{
+                                for (int i = 10; i < 18; i++)
+                                {
+                                    <option>@i</option>
+                                }
+                            }
+                        </select>
+                        <span asp-validation-for="Hours"></span>
+                    </div>
+
+                    <div class="col-sm-3 form-group">
+                        <label asp-for="Minutes"></label><br />
+                        <select class="form-control" asp-for="Minutes">
+                            @{
+                                for (int i = 0; i < 60; i += 5)
+                                {
+                                    <option>@i</option>
+                                }
+                            }
+                        </select>
+                        <span asp-validation-for="Minutes"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Comment"></label><br />
+                    <textarea class="form-control" style="height: 160px" asp-for="Comment"></textarea>
+                    <span asp-validation-for="Comment"></span>
+                </div>
+                <div class="form-check d-flex justify-content-center">
+                    <input class="form-check-input mr-2" asp-for="Checkbox" type="checkbox" />
+                    <label>Заказаь блюда на стол</label><br />
+                </div>
+
+                <div class="d-flex justify-content-center mt-5">
+                    <input class="btn btn-danger" type="submit" value="Заказать" />
+                </div>
+            </form>
         </div>
-    </form>
-</div>
+    </div>

@@ -31,7 +31,7 @@
         </div>
     </div>
     <hr />
-    <div class="d-flex flex-column">
+    <div class="d-flex flex-column mt-5">
         <div class="card w-50 ml-auto mr-auto shadow">
             <form class="m-auto pt-5 pb-4 px-2" method="post" asp-controller="Booking" asp-action="Step3">
                 <div asp-validation-summary="ModelOnly"></div>
@@ -82,7 +82,7 @@
                     <textarea class="form-control" style="height: 160px" asp-for="Comment"></textarea>
                     <span asp-validation-for="Comment"></span>
                 </div>
-                <div class="form-check d-flex justify-content-center">
+                <div class="form-check ml-5">
                     <input class="form-check-input mr-2" asp-for="Checkbox" type="checkbox" />
                     <label>Заказаь блюда на стол</label><br />
                 </div>

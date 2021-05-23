@@ -89,6 +89,37 @@ namespace Restaurant.Controllers
             return RedirectToAction("Index","Basket");
         }
 
+        public IActionResult AddFromBasket(int id)
+        {
+            Dish dish = _context.Dishes.FirstOrDefault(a => a.Id == id);
+            if (dish != null)
+            {
+                if (SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart") == null)
+                {
+                    List<Item> cart = new List<Item>();
+                    cart.Add(new Item { Dish = dish, Count = 1 });
+                    SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+                }
+                else
+                {
+                    List<Item> cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
+                    Item item = cart
+                            .Where(a => a.Dish.Id == dish.Id)
+                            .FirstOrDefault();
+                    if (item != null)
+                    {
+                        cart[cart.IndexOf(item)].Count++;
+                    }
+                    else
+                    {
+                        cart.Add(new Item { Dish = dish, Count = 1 });
+                    }
+                    SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+                }
+            }
+            return RedirectToAction("Index", "Basket");
+        }
+
         [HttpGet]
         public IActionResult Order()
         {

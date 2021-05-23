@@ -1,16 +1,18 @@
 ﻿@model IEnumerable<Restaurant.Models.Data.Item>
 @{ 
-    ViewBag.Title = "Menu page";
+    ViewBag.Title = "Корзина";
 }
-<div class="container-fluid" style="padding:0">
-    <h2 class="container-fluid" style="background-color:#990000; padding: 16px 0 24px 0; color:white" align="center">Ваша корзина</h2>
-    <div class="row container" style="margin: auto">
-        <table class="container-fluid table table-active" style="font-size:14pt">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Блюдо</th>
-                    <th scope="col">Количество</th>
-                    <th scope="col">Цена</th>
+
+    <div class="container-fluid h2 bg-danger py-3 text-center" style="color:white">
+    Ваша корзина
+    </div>
+    <div style="margin: auto; overflow: auto">
+        <table class="container-fluid table" style="font-size:14pt">
+            <thead>
+                <tr>                    
+                    <th class="pl-5 text-left" colspan="2" scope="col">Блюдо</th>
+                    <th class="text-center" scope="col">Количество</th>
+                    <th class="text-center" scope="col">Цена</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -20,14 +22,33 @@
                 @foreach (var line in Model)
                 {
                     <tr class="table-item">
-                        <td>@line.Dish.Name</td>
-                        <td>@line.Count</td>
-                        <td>@((line.Count * line.Dish.Price).ToString("# руб."))</td>
-                        <td style="margin: auto">
+                        <td style="width: 100px"><img height="80" width="80" src="@line.Dish.Photo" /></td>
+                        <td class="text-left align-middle">@line.Dish.Name</td>
+                        <td class="text-center align-middle">
+                            <table class="table table-bordered mx-auto mt-4" style="max-width: 120px">
+                                <tr style="max-height: 40px">
+                                    <td class="table-dark" style="width: 30px">
+                                        <a class="nav-link text-light p-0" asp-route-id="@line.Dish.Id" asp-action="AddFromBasket" asp-controller="Basket">
+                                            +
+                                        </a>
+                                    </td>
+                                    <td>@line.Count</td>
+                                    <td class="table-dark" style="width: 30px">
+                                        <a class="nav-link text-light p-0" asp-route-id="@line.Dish.Id" asp-action="Remove" asp-controller="Basket">
+                                            -
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="width: 100px" class="text-center align-middle">
+                                @((line.Count * line.Dish.Price).ToString("# руб."))
+                        </td>
+                        <td class="align-middle">
                             @using (Html.BeginForm("Remove", "Basket"))
                             {
                                 @Html.Hidden("id", line.Dish.Id)
-                                <input class="btn btn-sm btn-warning" type="submit" value="Удалить" />
+                                <input class="btn btn-link text-dark" type="submit" value="Удалить" />
                             }
                         </td>
                     </tr>
@@ -35,30 +56,31 @@
                 }
                 else
                 {
-                    <tr>
-                        <td>
+                    <tr style="background-color:white; height: 100px">
+                        <td colspan="5" class="h4 text-danger text-center pt-4">
                             Ваша корзина пуста!
                         </td>
                     </tr>
                 }
             </tbody>
-            <tfoot>
+            <tfoot class="table-secondary py-3">
                 <tr style="font-weight:bold">
-                    <td colspan="3" class="text-right">Итого: </td>
+                    <td colspan="2">
+                        @if (Model != null && Model.Count() != 0)
+                        {
+                            <button asp-action="Order" asp-controller="Basket" class="btn btn-success" >Заказать</button>
+                        }
+                        <button asp-action="Menu" asp-controller="Home" class="btn btn-dark" >Вернуться в меню</button>
+                    </td>
+                    <td colspan="2" class="text-right">Итого: </td>
                     <td>
-                        @ViewBag.Sum;
+                        @ViewBag.Sum
                     </td>
                 </tr>
             </tfoot>
         </table>
     </div>
-    <div class="row container" style="margin: auto; margin-top: 24px">
-        @if (Model != null && Model.Count() != 0)
-        {
-            @Html.ActionLink("Заказать", "Order", "Basket", new { @class = "btn btn-success", @style = "margin-right: 20px" })
-        }
-        @Html.ActionLink("Вернуться к меню", "Menu", "Home", new { @class = "btn btn-dark" })
-    </div>
+
     <div class="row container" style="margin: auto;margin-top: 16px;">
         <div id="Alert" class="alert alert-danger collapse">
             <a id="linkClose" href="#" class="close">&times;</a>
@@ -83,4 +105,3 @@
             });
         });
     </script>
-</div>

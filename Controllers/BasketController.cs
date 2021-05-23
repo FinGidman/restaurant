@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Restaurant.Models;
@@ -120,11 +121,12 @@ namespace Restaurant.Controllers
             return RedirectToAction("Index", "Basket");
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult Order()
         {
             var tables = _context.TableOrders.Where(t => t.UserId == _user.GetUserId(User) && t.Active == true);
-            if (tables != null)
+            if (tables.Count() != 0)
             {
                 return View(new OrderDishViewModel { OrderedTables = tables.ToList()});
             }

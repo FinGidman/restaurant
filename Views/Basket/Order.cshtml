@@ -1,20 +1,24 @@
 ﻿@model Restaurant.ViewModels.OrderDishViewModel; 
-<div>
-    <form method="post" asp-controller="Basket" asp-action="Order">
-        <div asp-validation-summary="ModelOnly"></div>
-
+    <div class="container-fluid h2 bg-danger py-3 text-center" style="color:white">
+        Оформление заказа
+    </div>
+<div class="card w-50 ml-auto mr-auto shadow mt-5">
+    <form class="pt-5 pb-4 px-3" method="post" asp-controller="Basket" asp-action="Order">
         @if (Model.OrderedTables != null)
         {
-            <div>
-                <label>На вынос</label><br />
-                <input type="radio" asp-for="Type" name="type" value="Out" />
-                <br />
-                <label>На стол</label><br />
-                <input type="radio" asp-for="Type" name="type" value="In" />
+            <div class="row form-check col-sm-7 px-0 mx-auto mb-3">
+                <div class="col-sm">
+                    <input class="form-check-input" type="radio" asp-for="Type" name="type" value="Out" />
+                    <label class="form-check-label">На вынос</label>
+                </div>
+                <div class="col-sm">
+                    <input class="form-check-input" type="radio" asp-for="Type" name="type" value="In" />
+                    <label class="form-check-label">На стол</label>
+                </div>
             </div>
-            <div>
-                <label asp-for="OrderedTables"></label><br />
-                <select asp-for="TableId">
+            <div class="form-group col-sm-7 px-0 mx-auto mb-3">
+                <label asp-for="OrderedTables"></label>
+                <select class="form-control" asp-for="TableId">
                     @foreach (var table in Model.OrderedTables)
                     {
                         <option>@table.TableId</option>
@@ -24,17 +28,19 @@
         }
         else
         {
-            <div>
-                <label>На вынос</label><br />
-                <input type="radio"  asp-for="Type" name="type" value="Out" />
-                <br />
-            </div>
+        <div class="form-check">
+            <input type="radio" asp-for="Type" name="type" value="Out" checked />
+            <label>На вынос</label>
+        </div>
         }
-        <div>
+        <div class="form-group">
             <label asp-for="Comment"></label><br />
-            <textarea asp-for="Comment" cols="10" rows="10"></textarea>
+            <textarea class="form-control" style="height: 160px" asp-for="Comment"></textarea>
             <span asp-validation-for="Comment"></span>
         </div>
-        <input type="submit" value="Заказать" />
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="d-flex justify-content-center mt-5">
+            <input class="btn btn-danger" type="submit" value="Заказать" />
+        </div>
     </form>
 </div>

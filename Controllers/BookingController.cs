@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -88,6 +89,7 @@ namespace Restaurant.Controllers
 
         /////////////////////////////////////////////
 
+        [Authorize]
         public IActionResult Order(Step3ViewModel model)
         {
             DateTime orderTime = Convert.ToDateTime(model.Date);

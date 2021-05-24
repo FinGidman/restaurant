@@ -28,7 +28,7 @@ namespace Restaurant.Models
 
         public static void ClearObject(this ISession session, string key)
         {
-            session.ClearObject(key);
+            session.SetString(key, "");
         }
     }
 }

@@ -162,3 +162,33 @@ my-50{
     margin-top:50%;
     margin-bottom: 50%;
 }
+
+.btn-circle{
+    border-style: solid;
+    border-radius: 50%;
+    border-width: 2px;
+    background-color: #E22104;
+    width: 80px;
+    height: 80px;
+    position: fixed;
+    right: 20px;
+    top: 85%;
+}
+
+.btn-circle-icon{
+    height: 25px;
+    width: 25px;
+    background-color: white;
+    position: fixed;
+    color: darkorange;
+    border-radius: 50%;
+    border-width: 1px;
+    border-style: solid;
+    border-color: darkorange;
+    right: 75px;
+    top: 92%;
+}
+
+.text-common {
+    color: #2f2d4e !important;
+}

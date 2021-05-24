@@ -1,18 +1,40 @@
 ﻿@model IEnumerable<Restaurant.Models.Data.Dish>
+
 <nav class="col navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-danger">
     <div class="navbar d-sm-inline-flex flex-sm-row">
         <ul class="navbar-nav flex-grow-1">
             <li class="nav-item">
-                <a class="nav-link text-light">Спагетти</a>
+                <a class="nav-link text-light" asp-action="Sort" asp-controller="Home" asp-route-category="суп">Супы</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-light">Спагетти</a>
+                <a class="nav-link text-light" asp-action="Sort" asp-controller="Home" asp-route-category="спагетти">Спагетти</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-light">Спагетти</a>
+                <a class="nav-link text-light" asp-action="Sort" asp-controller="Home" asp-route-category="ризотто">Ризотто</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-light">Спагетти</a>
+                <a class="nav-link text-light" asp-action="Sort" asp-controller="Home" asp-route-category="лазанья">Лазанья</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" asp-action="Sort" asp-controller="Home" asp-route-category="равиолли">Равиолли</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" asp-action="Sort" asp-controller="Home" asp-route-category="салаты">Салаты</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" asp-action="Sort" asp-controller="Home" asp-route-category="мясное">Мясные блюда</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" asp-action="Sort" asp-controller="Home" asp-route-category="вегетарианское">Вегетаринское меню</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" asp-action="Sort" asp-controller="Home" asp-route-category="закуски">Закуски</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" asp-action="Sort" asp-controller="Home" asp-route-category="десерты">Десерты</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" asp-action="Sort" asp-controller="Home" asp-route-category="напитки">Напитки</a>
             </li>
         </ul>
     </div>
@@ -23,38 +45,38 @@
         foreach (var d in Model)
         {
             <div class="col">
-                    <div class="card m-1 p-0" style="max-width: 640px; max-height:840px">
-                            <div class="card-img-top">
-                                <img src=@d.Photo class="img-fluid" alt=@d.Name style="max-height: 240px; min-width: 180px" />
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">@d.Name</h5>
-                                <p class="card-text">@d.Description</p>
-                                <p class="card-text">@d.Price</p>
-                                <form method="post" asp-action="Add" asp-controller="Basket">
-                                    <input hidden="hidden" readonly="readonly" name="id" type="text" value="@d.Id" />
-                                    <button class="btn btn-info" type="submit">Добавить</button>
-                                </form>
-                            </div>
-                            @*<div class="row g-0">
-                                <div class="col-md-4 col-lg-4">
-                                    <img src=@d.Photo class="img-fluid" alt=@d.Name style="max-height: 240px; min-width: 180px" />
-                                </div>
-
-                                <div class="col-md-8 col-lg-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title">@d.Name</h5>
-                                        <p class="card-text">@d.Description</p>
-                                        <p class="card-text">@d.Price</p>
-                                        <form method="post" asp-action="Add" asp-controller="Basket">
-                                            <input hidden="hidden" readonly="readonly" name="id" type="text" value="@d.Id" />
-                                            <button type="submit">Добавить</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>*@
+                <div class="card m-1 p-0 shadow" style="max-width: 380px; max-height:640px">
+                        <img  src=@d.Photo class="img-fluid card-img-top" alt=@d.Name style="max-height: 240px; min-width: 180px" />
+                    <div class="card-body">
+                        <h5 class="card-title font-italic" style="color: #E22104">@d.Name</h5>
+                        <hr/>
+                        <p class="card-text align-content-stretch text-common">@d.Description</p>
+                        <p class="card-title text-common font-weight-bold font-italic text-right">Цена: @Math.Round(d.Price,2) руб.</p>
+                        <hr />
+                        <form method="post" asp-action="Add" asp-controller="Basket" align="right">
+                            <input hidden="hidden" readonly="readonly" name="id" type="text" value="@d.Id" />
+                            <button  class="add btn btn-info" type="submit">Добавить</button>
+                        </form>
                     </div>
+                </div>
             </div>
         }
     }
 </div>
+
+<script type="text/javascript">
+    $('.add').click(function (e) {
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("CircleBtn", "Home")",
+                success: function (msg) {
+                    console.log(msg);
+                    $("#btncircle").replaceWith(msg);
+                },
+                error: function (req, status, error) {
+                    console.log(msg);
+                }
+            });
+    });
+</script>
+

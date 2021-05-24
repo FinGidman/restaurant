@@ -41,5 +41,27 @@ namespace Restaurant.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+
+        public IActionResult CircleBtn()
+        {
+            var value = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
+            if (value != null)
+            {
+                int count = 0;
+                for (int i = 0; i < value.Count; i++)
+                {
+                    count += value.ElementAt(i).Count;
+                }
+                ViewData["Count"] = count;
+            }
+            else
+                ViewData["Count"] = 0;
+            return PartialView("_CircleBtn");
+        }
+
+        public IActionResult Sort(string category)
+        {            
+            return View("Menu",_context.Dishes.Where(x => x.Category == category).ToList());
+        }
     }
 }

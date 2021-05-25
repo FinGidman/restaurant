@@ -121,6 +121,18 @@ namespace Restaurant.Controllers
             return RedirectToAction("Index", "Basket");
         }
 
+        public IActionResult DeleteFromBasket(int id)
+        {
+            List<Item> cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
+            Item item = cart.FirstOrDefault(a => a.Dish.Id == id);
+            if (item != null)
+            {             
+                    cart.Remove(item);               
+            }
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+            return RedirectToAction("Index", "Basket");
+        }
+
         [Authorize]
         [HttpGet]
         public IActionResult Order()

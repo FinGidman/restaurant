@@ -192,3 +192,11 @@ my-50{
 .text-common {
     color: #2f2d4e !important;
 }
+
+.bg-lightgray{
+    color: #6d6d6d;
+}
+
+.hand-pointer:hover {
+    cursor: pointer;
+}

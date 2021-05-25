@@ -1,18 +1,19 @@
 ﻿@model IEnumerable<Restaurant.Models.Data.TableOrder>
-<table>
-    <thead>
+<table class="table table-striped">
+    <thead class="bg-secondary text-light">
         <tr>
-            <td>№ стола</td>
-            <td>Гости</td>
-            <td>Состояние</td>
-            <td>Время заказа</td>
+            <td scope="col">Стол</td>
+            <td scope="col">Гости</td>
+            <td scope="col">Состояние</td>
+            <td scope="col">Время заказа</td>          
+            <td scope="col">-</td>          
         </tr>
     </thead>
     <tbody>
         @foreach (var d in Model)
         {
         <tr>
-            <td>@d.Id</td>
+            <td>@d.TableId</td>
             <td>@d.Persons</td>
             @if (d.Active == true)
             {
@@ -26,11 +27,11 @@
             <td>
                 @if (@d.Active == true)
                 {
-                    <a type="button" class="btn btn-warning"
+                    <a type="button" class="btn-link text-dark"
                        data-ajax="true"
                        data-ajax-update="#table"
                        data-ajax-mode="replace"
-                       href="@Url.Action("CloseTableOrder", "Users", new { @id = d.Id })">Отменить</a>
+                       href="@Url.Action("CloseTableOrder", "Users", new { @id = d.Id })"><u>Отменить</u></a>
                 }
             </td>
         </tr>

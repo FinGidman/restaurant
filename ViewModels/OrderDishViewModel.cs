@@ -17,6 +17,8 @@ namespace Restaurant.ViewModels
 
         public int TableId { get; set; }
 
+        public DateTime TableDate { get; set; }
+
         [Display(Name = "Комментарий")]
         public string Comment {get; set;}
     }

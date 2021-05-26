@@ -123,7 +123,7 @@ namespace Restaurant.Controllers
                             TableId = model.TableId,
                             Active = true,
                             OrderType = "in",
-                            OrderTime = DateTime.Now,
+                            OrderTime = orderTime,
                             Comment = "",
                             OrderListJson = orderList
                         };

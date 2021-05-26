@@ -158,13 +158,19 @@ namespace Restaurant.Controllers
             }
             if (model.Type == "In")
             {
+                var table = _context.TableOrders
+                    .Where(x => x.TableId == model.TableId
+                    && x.UserId == _user.GetUserId(User)
+                    && DateTime.Compare(x.OrderTime.Date, model.TableDate.Date) == 0
+                    && x.Active == true).First();
+
                 DishOrder dishOrder = new DishOrder
                 {
-                    UserId = _user.GetUserId(User),
-                    TableId = model.TableId,
+                    UserId = table.UserId,
+                    TableId = table.TableId,
                     Active = true,
                     OrderType = "in",
-                    OrderTime = DateTime.Now,
+                    OrderTime = table.OrderTime,
                     Comment = model.Comment,
                     OrderListJson = orderList
                 };

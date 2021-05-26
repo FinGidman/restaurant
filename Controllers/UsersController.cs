@@ -35,14 +35,40 @@ namespace Restaurant.Controllers
 
         public IActionResult OrderedDishesPartial()
         {
-            var orderedDishes = _context.DishOrders.Where(t => t.UserId == _userManager.GetUserId(User)).OrderByDescending(t => t.Active);
-            return PartialView("_OrderedDishes",orderedDishes);
+            if (User.IsInRole("user"))
+            {
+                var orderedDishes = _context.DishOrders
+                    .Where(t => t.UserId == _userManager.GetUserId(User))
+                    .OrderByDescending(t => t.Active)
+                    .OrderByDescending(t => t.OrderTime);
+                return PartialView("_OrderedDishes", orderedDishes);
+            }
+            else
+            {
+                var orderedDishes = _context.DishOrders
+                    .OrderByDescending(t => t.Active)
+                    .OrderByDescending(t => t.OrderTime);
+                return PartialView("_OrderedDishes", orderedDishes);
+            }
         }
 
         public IActionResult OrderedTablesPartial()
         {
-            var orderedTables = _context.TableOrders.Where(t => t.UserId == _userManager.GetUserId(User)).OrderByDescending(t => t.Active);
-            return PartialView("_OrderedTables",orderedTables);
+            if (User.IsInRole("user"))
+            {
+                var orderedTables = _context.TableOrders
+                    .Where(t => t.UserId == _userManager.GetUserId(User))
+                    .OrderByDescending(t => t.Active)
+                    .OrderByDescending(t => t.OrderTime);
+                return PartialView("_OrderedTables", orderedTables);
+            }
+            else
+            {
+                var orderedTables = _context.TableOrders
+                    .OrderByDescending(t => t.Active)
+                    .OrderByDescending(t => t.OrderTime);
+                return PartialView("_OrderedTables", orderedTables);
+            }
         }
 
         public IActionResult CloseDishOrder(int id)
@@ -51,8 +77,21 @@ namespace Restaurant.Controllers
             order.Active = false;
             _context.DishOrders.Update(order);
             _context.SaveChanges();
-            var orderedDishes = _context.DishOrders.Where(t => t.UserId == _userManager.GetUserId(User)).OrderByDescending(t => t.Active);
-            return PartialView("_OrderedDishes", orderedDishes);
+            if (User.IsInRole("user"))
+            {
+                var orderedDishes = _context.DishOrders
+                    .Where(t => t.UserId == _userManager.GetUserId(User))
+                    .OrderByDescending(t => t.Active)
+                    .OrderByDescending(t => t.OrderTime);
+                return PartialView("_OrderedDishes", orderedDishes);
+            }
+            else
+            {
+                var orderedDishes = _context.DishOrders
+                    .OrderByDescending(t => t.Active)
+                    .OrderByDescending(t => t.OrderTime);
+                return PartialView("_OrderedDishes", orderedDishes);
+            }
         }
 
         public IActionResult CloseTableOrder(int id)
@@ -61,8 +100,204 @@ namespace Restaurant.Controllers
             order.Active = false;
             _context.TableOrders.Update(order);
             _context.SaveChanges();
-            var orderedTables = _context.TableOrders.Where(t => t.UserId == _userManager.GetUserId(User)).OrderByDescending(t => t.Active);
-            return PartialView("_OrderedTables", orderedTables);
+
+            if (order.TableId != 0)
+            {
+                var dishes = _context.DishOrders
+                    .Where(x => x.TableId == order.TableId
+                    && x.UserId == _userManager.GetUserId(User)
+                    && x.OrderTime == order.OrderTime);
+
+                if (dishes != null)
+                {
+                    foreach (var d in dishes)
+                    {
+                        d.Active = false;
+                        _context.DishOrders.Update(d);                       
+                    }
+                    _context.SaveChanges();
+                }
+            }
+            if (User.IsInRole("user"))
+            {
+                var orderedTables = _context.TableOrders
+                    .Where(t => t.UserId == _userManager.GetUserId(User))
+                    .OrderByDescending(t => t.Active)
+                    .OrderByDescending(t => t.OrderTime);
+                return PartialView("_OrderedTables", orderedTables);
+            }
+            else
+            {
+                var orderedTables = _context.TableOrders
+                    .OrderByDescending(t => t.Active)
+                    .OrderByDescending(t => t.OrderTime);
+                return PartialView("_OrderedTables", orderedTables);
+            }
+        }
+
+        public IActionResult SortOrderedDishes(string type)
+        {
+            switch (type)
+            {
+                case "future":
+                    {
+                        if (User.IsInRole("user"))
+                        {
+                            var list = _context.DishOrders
+                                .Where(x => DateTime.Compare(x.OrderTime, DateTime.Now) > 0
+                                && x.UserId == _userManager.GetUserId(User))
+                                .OrderByDescending(t => t.OrderTime);
+                            return PartialView("_OrderedDishes", list);
+                        }
+                        else
+                        {
+                            var list = _context.DishOrders
+                                .Where(x => DateTime.Compare(x.OrderTime, DateTime.Now) > 0)
+                                .OrderByDescending(t => t.OrderTime);
+                            return PartialView("_OrderedDishes", list);
+                        }
+                    }
+                case "today":
+                    {
+                        if (User.IsInRole("user"))
+                        {
+                            var list = _context.DishOrders
+                                .Where(x => DateTime.Compare(x.OrderTime.Date, DateTime.Now.Date) == 0
+                                && x.UserId == _userManager.GetUserId(User))
+                                .OrderByDescending(t => t.OrderTime);
+                            return PartialView("_OrderedDishes", list);
+                        }
+                        else
+                        {
+                            var list = _context.DishOrders
+                                .Where(x => DateTime.Compare(x.OrderTime.Date, DateTime.Now.Date) == 0)
+                                .OrderByDescending(t => t.OrderTime);
+                            return PartialView("_OrderedDishes", list);
+                        }
+                    }
+                case "active": 
+                    {
+                        if (User.IsInRole("user"))
+                        {
+                            var list = _context.DishOrders
+                                .Where(x => x.Active == true && x.UserId == _userManager.GetUserId(User))
+                                .OrderByDescending(t => t.OrderTime);
+                            return PartialView("_OrderedDishes", list);
+                        }
+                        else
+                        {
+                            var list = _context.DishOrders
+                                .Where(x => x.Active == true)
+                                .OrderByDescending(t => t.OrderTime);
+                            return PartialView("_OrderedDishes", list);
+                        }
+                    }
+                case "closed":
+                    {
+                        if (User.IsInRole("user"))
+                        {
+                            var list = _context.DishOrders
+                                .Where(x => x.Active == false 
+                                && x.UserId == _userManager.GetUserId(User))
+                                .OrderByDescending(t => t.OrderTime);
+                            return PartialView("_OrderedDishes", list);
+                        }
+                        else
+                        {
+                            var list = _context.DishOrders
+                                .Where(x => x.Active == false)
+                                .OrderByDescending(t => t.OrderTime);
+                            return PartialView("_OrderedDishes", list);
+                        }
+                    }
+                default:
+                    {
+                        return RedirectToAction("OrderedDishesPartial");
+                    }
+            }
+        }
+
+        public IActionResult SortOrderedTables(string type)
+        {
+            switch (type)
+            {
+                case "future":
+                    {
+                        if (User.IsInRole("user"))
+                        {
+                            var list = _context.TableOrders
+                                .Where(x => DateTime.Compare(x.OrderTime, DateTime.Now) > 0 
+                                && x.UserId == _userManager.GetUserId(User))
+                                .OrderByDescending(t => t.OrderTime);
+                            return PartialView("_OrderedTables", list);
+                        }
+                        else
+                        {
+                            var list = _context.TableOrders
+                                .Where(x => DateTime.Compare(x.OrderTime, DateTime.Now) > 0)
+                                .OrderByDescending(t => t.OrderTime);
+                            return PartialView("_OrderedTables", list);
+                        }
+                    }
+                case "today":
+                    {
+                        if (User.IsInRole("user"))
+                        {
+                            var list = _context.TableOrders
+                                .Where(x => DateTime.Compare(x.OrderTime.Date, DateTime.Now.Date) == 0 
+                                && x.UserId == _userManager.GetUserId(User))
+                                .OrderByDescending(t => t.OrderTime);
+                            return PartialView("_OrderedTables", list);
+                        }
+                        else
+                        {
+                            var list = _context.TableOrders
+                                .Where(x => DateTime.Compare(x.OrderTime.Date, DateTime.Now.Date) == 0)
+                                .OrderByDescending(t => t.OrderTime);
+                            return PartialView("_OrderedTables", list);
+                        }
+                    }
+                case "active":
+                    {
+                        if (User.IsInRole("user"))
+                        {
+                            var list = _context.TableOrders
+                                .Where(x => x.Active == true 
+                                && x.UserId == _userManager.GetUserId(User))
+                                .OrderByDescending(t => t.OrderTime);
+                            return PartialView("_OrderedTables", list);
+                        }
+                        else
+                        {
+                            var list = _context.TableOrders
+                                .Where(x => x.Active == true)
+                                .OrderByDescending(t => t.OrderTime);
+                            return PartialView("_OrderedTables", list);
+                        }
+                    }
+                case "closed":
+                    {
+                        if (User.IsInRole("user"))
+                        {
+                            var list = _context.TableOrders
+                                .Where(x => x.Active == false 
+                                && x.UserId == _userManager.GetUserId(User))
+                                .OrderByDescending(t => t.OrderTime);
+                            return PartialView("_OrderedTables", list);
+                        }
+                        else
+                        {
+                            var list = _context.TableOrders
+                                .Where(x => x.Active == false)
+                                .OrderByDescending(t => t.OrderTime);
+                            return PartialView("_OrderedTables", list);
+                        }
+                    }
+                default:
+                    {
+                        return RedirectToAction("OrderedTablesPartial");
+                    }
+            }
         }
 
         ///////////////////////////////////////////
@@ -102,6 +337,18 @@ namespace Restaurant.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> EditFromUserProfile()
+        {
+            string id = _userManager.GetUserId(User);
+            User user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            EditUserViewModel model = new EditUserViewModel { Id = user.Id, Email = user.Email, PersonName = user.PersonName, PersonSurname = user.PersonSurname };
+            return View("Edit",model);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Edit(EditUserViewModel model)
         {
@@ -132,6 +379,8 @@ namespace Restaurant.Controllers
             return View(model);
         }
 
+        ///////////////////////////////////////////////////////////////////////////
+
         [HttpPost]
         public async Task<ActionResult> Delete(string id)
         {
@@ -153,6 +402,18 @@ namespace Restaurant.Controllers
             }
             ChangePasswordViewModel model = new ChangePasswordViewModel { Id = user.Id, Email = user.Email };
             return View(model);
+        }
+
+        public async Task<IActionResult> ChangePasswordFromUserProfile()
+        {
+            string id = _userManager.GetUserId(User);
+            User user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            ChangePasswordViewModel model = new ChangePasswordViewModel { Id = user.Id, Email = user.Email };
+            return View("ChangePassword",model);
         }
 
         [HttpPost]

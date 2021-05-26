@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<Restaurant.Models.Data.User>
+@using Microsoft.AspNetCore.Identity;
 @{
     ViewBag.Title = "Список пользователей";
 }
@@ -38,21 +39,86 @@
 }
 else if (User.Identity.IsAuthenticated && User.IsInRole("employee"))
 {
-    <h2>Hello employee!</h2>
-}
-else if (User.Identity.IsAuthenticated && User.IsInRole("user"))
-{
-    <div class="bg-danger h4 text-light m-0 py-3 text-center">Профиль пользователя</div>
+    <div class="row my-3">
+        <h2 class="col-sm-6 pr-0"> Активность пользователей </h2>
+        <div class="col-md container-fluid p-0 m-0"><hr class="mt-4 hr-style-1" /></div>
+    </div>
     <ul class="nav nav-tabs bg-light">
-        <li  class="nav-item active">
-            <a id="dishtab" class="nav-link"
+        <li class="nav-item">
+            <a id="dishtab" class="nav-link px-4"
                data-ajax="true"
                data-ajax-update="#table"
                data-ajax-mode="replace"
                href="@Url.Action("OrderedDishesPartial","Users")">Заказы</a>
         </li>
-        <li  class="nav-item">
-            <a id="tabletab" class="nav-link"
+        <li class="nav-item">
+            <a id="tabletab" class="nav-link px-4"
+               data-ajax="true"
+               data-ajax-update="#table"
+               data-ajax-mode="replace"
+               href="@Url.Action("OrderedTablesPartial","Users")">Столы</a>
+        </li>
+    </ul>
+
+    <div style="overflow:auto; overflow-y:auto" class="container border my-2 vh-100" id="table">
+
+    </div>
+
+    <nav class="col navbar navbar-expand-sm navbar-toggleable-sm mt-3">
+        <div class="navbar d-inline-flex flex-sm-row">
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item">
+                    <form method="post" asp-controller="Account" asp-action="Logout">
+                        <input class="btn btn-danger" type="submit" value="Выйти из профиля" />
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <script type="text/javascript">
+        $('#dishtab').click(function (e) {
+            $('#dishtab').addClass("active");
+            $('#tabletab').removeClass("active");
+        });
+
+        $('#tabletab').click(function (e) {
+            $('#tabletab').addClass("active");
+            $('#dishtab').removeClass("active");
+        });
+
+         $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("OrderedDishesPartial", "Users")",
+                success: function (msg) {
+                    console.log(msg);
+                    $('#dishtab').addClass("active");
+                    $("#table").html(msg);
+                },
+                error: function (req, status, error) {
+                    console.log(msg);
+                }
+            });
+        });
+    </script>
+}
+else if (User.Identity.IsAuthenticated && User.IsInRole("user"))
+{
+    <div class="row my-3">
+        <h2 class="col-sm-3 pr-0"> Ваша активность </h2>
+        <div class="col-md container-fluid p-0 m-0"><hr class="mt-4 hr-style-1" /></div>
+    </div>
+    <ul class="nav nav-tabs bg-light">
+        <li class="nav-item">
+            <a id="dishtab" class="nav-link px-4"
+               data-ajax="true"
+               data-ajax-update="#table"
+               data-ajax-mode="replace"
+               href="@Url.Action("OrderedDishesPartial","Users")">Заказы</a>
+        </li>
+        <li class="nav-item">
+            <a id="tabletab" class="nav-link px-4"
                data-ajax="true"
                data-ajax-update="#table"
                data-ajax-mode="replace"
@@ -62,35 +128,64 @@ else if (User.Identity.IsAuthenticated && User.IsInRole("user"))
     <div style="overflow:auto; overflow-y:auto" class="container border my-2 vh-100" id="table">
 
     </div>
-    <div>
-        <form method="post" asp-controller="Account" asp-action="Logout">
-            <input type="submit" value="Выйти из профиля" />
-        </form>
-    </div>
-    <script type="text/javascript">
 
-            $('#dishtab').click(function (e) {
-                $('#dishtab').addClass("active");
-                $('#tabletab').removeClass("active");
-            });
+    <div class="row my-3">
+        <h2 class="col-sm-5 pr-0"> Управление профилем </h2>
+        <div class="col-md container-fluid p-0 m-0"><hr class="mt-4 hr-style-1" /></div>
+    </div>
+    <nav class="col navbar navbar-expand-sm navbar-toggleable-sm">
+        <div class="navbar d-inline-flex flex-sm-row">
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item">
+                    <a class="nav-link"
+                       asp-action="EditFromUserProfile"
+                       asp-controller="Users">Изменить профиль</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                       asp-action="ChangePasswordFromUserProfile"
+                       asp-controller="Users">Сменить пароль</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <nav class="col navbar navbar-expand-sm navbar-toggleable-sm">
+        <div class="navbar d-inline-flex flex-sm-row">
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item">
+                    <form method="post" asp-controller="Account" asp-action="Logout">
+                        <input class="btn btn-danger" type="submit" value="Выйти из профиля" />
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <script type="text/javascript">
+        $('#dishtab').click(function (e) {
+            $('#dishtab').addClass("active");
+            $('#tabletab').removeClass("active");
+        });
 
         $('#tabletab').click(function (e) {
             $('#tabletab').addClass("active");
             $('#dishtab').removeClass("active");
         });
 
-         @*$(document).ready(function () {
+         $(document).ready(function () {
             $.ajax({
                 type: "GET",
                 url: "@Url.Action("OrderedDishesPartial", "Users")",
                 success: function (msg) {
                     console.log(msg);
-                    $("#table").replaceWith(msg);
+                    $('#dishtab').addClass("active");
+                    $("#table").html(msg);
                 },
                 error: function (req, status, error) {
                     console.log(msg);
                 }
             });
-        });*@
+        });
     </script>
 }

@@ -1,40 +1,146 @@
 ﻿@model IEnumerable<Restaurant.Models.Data.TableOrder>
-<table class="table table-striped">
+    <nav class="col navbar navbar-expand-sm navbar-toggleable-sm">
+        <div class="navbar d-inline-flex flex-sm-row">
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item">
+                    <a class="nav-link"
+                       asp-action="SortOrderedTables"
+                       asp-controller="Users"
+                       asp-route-type="all"
+                       data-ajax="true"
+                       data-ajax-update="#table"
+                       data-ajax-mode="replace">Все</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                       asp-action="SortOrderedTables"
+                       asp-controller="Users"
+                       asp-route-type="future"
+                       data-ajax="true"
+                       data-ajax-update="#table"
+                       data-ajax-mode="replace">Запланированы</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                       asp-action="SortOrderedTables"
+                       asp-controller="Users"
+                       asp-route-type="today"
+                       data-ajax="true"
+                       data-ajax-update="#table"
+                       data-ajax-mode="replace">Сегодня</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                       asp-action="SortOrderedTables"
+                       asp-controller="Users"
+                       asp-route-type="active"
+                       data-ajax="true"
+                       data-ajax-update="#table"
+                       data-ajax-mode="replace">Активные</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                       asp-action="SortOrderedTables"
+                       asp-controller="Users"
+                       asp-route-type="closed"
+                       data-ajax="true"
+                       data-ajax-update="#table"
+                       data-ajax-mode="replace">Закрытые</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+<table class="table table-striped table-hover">
     <thead class="bg-secondary text-light">
         <tr>
-            <td scope="col">Стол</td>
-            <td scope="col">Гости</td>
-            <td scope="col">Состояние</td>
-            <td scope="col">Время заказа</td>          
-            <td scope="col">-</td>          
+            <td scope="col" class="text-center">Стол</td>
+            <td scope="col" class="text-center">Гости</td>
+            <td scope="col" class="text-center">Состояние</td>
+            <td scope="col" class="text-center">Время заказа</td>          
+            <td scope="col" class="text-center">Комментарий</td>          
+            <td scope="col" class="text-center">-</td>          
         </tr>
     </thead>
     <tbody>
         @foreach (var d in Model)
         {
         <tr>
-            <td>@d.TableId</td>
-            <td>@d.Persons</td>
+            <td class="text-center">@d.TableId</td>
+            <td class="text-center">@d.Persons</td>
             @if (d.Active == true)
             {
-                <td><span style="color: green">Активен</span></td>
+                <td class="text-center"><span style="color: green">Активен</span></td>
             }
             else
             {
-                <td><span style="color: red">Не активен</span></td>
+                <td class="text-center"><span style="color: red">Не активен</span></td>
             }
-            <td>@d.OrderTime</td>
+            <td class="text-center">@d.OrderTime</td>
+            <td>@d.Comment</td>
             <td>
                 @if (@d.Active == true)
                 {
-                    <a type="button" class="btn-link text-dark"
+                    <a tableid="@d.Id" class="cancelbtn btn-link text-dark hand-pointer"><u>Отменить</u></a>
+                    @*<a type="button" class="btn-link text-dark text-center"
                        data-ajax="true"
                        data-ajax-update="#table"
                        data-ajax-mode="replace"
-                       href="@Url.Action("CloseTableOrder", "Users", new { @id = d.Id })"><u>Отменить</u></a>
+                       href="@Url.Action("CloseTableOrder", "Users", new { @id = d.Id })"><u>Отменить</u></a>*@
                 }
             </td>
         </tr>
         }
     </tbody>
 </table>
+
+<div class="modal fade" id="cancel-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Подвтержжение</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Вы действительно хотите отменить заказ?
+                Откатить отмену нельзя
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                <button type="button" id="tableId" tableId="tableId" class="accept-modal btn btn-primary">Да</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('.cancelbtn').click(function (e) {
+        $(".modal-footer #tableId").val($(this).attr('tableid'));
+        $('#cancel-modal').modal('show');
+
+    });
+
+    $('.accept-modal').click(function (e) {
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("CloseTableOrder", "Users")",
+            data: { id: $('#tableId').val()},
+            dataType: "text",
+            success: function (msg) {
+                console.log(msg);
+                $('#cancel-modal').modal('hide');
+                $("#table").html(msg);
+                $(".modal-backdrop").remove();
+                $("body").removeClass("modal-open");
+            },
+            error: function (req, status, error) {
+                console.log(msg);
+                $('#cancel-modal').modal('hide');
+                $(".modal-backdrop").remove();
+                $("body").removeClass("modal-open");
+            }
+        });
+    });
+</script>

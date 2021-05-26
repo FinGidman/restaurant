@@ -18,12 +18,14 @@
             </div>
             <div class="form-group col-sm-7 px-0 mx-auto mb-3">
                 <label asp-for="OrderedTables"></label>
-                <select class="form-control" asp-for="TableId">
+                <select class="restable form-control">
                     @foreach (var table in Model.OrderedTables)
                     {
-                        <option>@table.TableId</option>
+                        <option restableid="@table.TableId" orderdate="@table.OrderTime">@table.TableId на @table.OrderTime</option>
                     }
                 </select>
+                <input class="order-date-input" type="text" asp-for="TableDate" hidden/>
+                <input class="table-id-input" type="text" asp-for="TableId" hidden/>
             </div>
         }
         else
@@ -44,3 +46,16 @@
         </div>
     </form>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.restable').change(function () {    
+            var date = $(this).children('option:selected').attr('orderdate');
+            var id = $(this).children('option:selected').attr('restableid');
+            @*@Model.TableDate = date;
+            @Model.TableId = id;*@
+            $('.order-date-input').val(date);
+            $('.table-id-input').val(id);
+        });
+    });
+    
+</script>

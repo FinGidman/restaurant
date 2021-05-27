@@ -52,7 +52,7 @@
         </div>
     </nav >
     <table class="table table-striped table-hover">
-        <thead class="bg-secondary text-light">
+        <thead class="bg-secondary text-light fix-header">
             <tr>
                 <td scope="col" class="text-center">№</td>
                 <td scope="col" class="text-center">Состояние</td>
@@ -67,7 +67,7 @@
             @foreach (var d in Model)
             {
                 <tr>
-                    <td class="text-center">@d.Id</td>
+                    <td class="text-center border-right">@d.Id</td>
                     @if (d.Active == true)
                     {
                         <td class="text-center"><span style="color: green">Активен</span></td>
@@ -96,40 +96,48 @@
                     <td>
                         @d.Comment
                     </td>
-                    <td>
-                        <a class="btn btn-primary" data-toggle="collapse" href="#collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
-                            Блюда
+                    <td class="text-center border-left">
+                        <a order-id="@d.Id" class="show-dishes btn btn-link text-dark hand-pointer">
+                            <u>Блюда</u>
                         </a>
-                        <div class="collapse" id="collapse">
-                            <table>
-                                @{var res = JsonConvert.DeserializeObject<List<Item>>(d.OrderListJson);
-                                    foreach (var r in res)
-                                    {
-                                        <tr>
-                                            <td>@r.Dish.Name</td>
-                                            <td>@r.Dish.Price</td>
-                                            <td>@r.Count</td>
-                                        </tr>
-                                    }
-                                    <tfoot>
-                                        <tr>
-                                            @{
-                                                var total = res.Sum(r => (r.Dish.Price * r.Count));
-                                            }
-                                            <td>@total</td>
-                                        </tr>
-                                    </tfoot>
-                                }
-                            </table>
-                        </div>
-
-
                     </td>
-                    <td>
+                    <td class="text-center border-left">
                         @if (@d.Active == true)
                         {
-                            <a tableid="@d.Id" class="cancelbtn btn-link text-dark hand-pointer"><u>Отменить</u></a>
+                            <a tableid="@d.Id" class="cancelbtn btn-link text-dark hand-pointer">
+                                <u>Отменить</u>
+                            </a>
                         }
+                    </td>
+                </tr>
+                <tr class="collapse" id="@d.Id">
+                    <td colspan="8" class="pt-0">
+                        <table class="container-fluid">
+                            @{var res = JsonConvert.DeserializeObject<List<Item>>(d.OrderListJson);
+                                foreach (var r in res)
+                                {
+                                    <tr class="font-italic">
+                                        <td style="color: #E22104">@r.Dish.Name</td>
+                                        <td>@r.Count</td>
+                                        <td>
+                                            @{ 
+                                                decimal sum = r.Dish.Price * r.Count;
+                                            }
+                                            @Math.Round(sum, 2) руб.
+                                        </td>
+                                    </tr>
+                                }
+                                <tfoot>
+                                    <tr>
+                                        @{
+                                            var total = res.Sum(r => (r.Dish.Price * r.Count));
+                                        }
+                                        <td colspan="2" class="text-right">Сумма:</td>
+                                        <td class="text-left">@Math.Round(total, 2) руб.</td>
+                                    </tr>
+                                </tfoot>
+                            }
+                        </table>
                     </td>
                 </tr>
             }
@@ -163,6 +171,17 @@
         $('#cancel-modal').modal('show');
 
     });
+
+        $('.show-dishes').click(function (e) {
+            var id = $(this).attr('order-id');
+            var element = $('body').find("#" + id);
+            if (element.collapse({ toggle: true})) {
+                element.collapse('show')
+            }
+            if (element.collapse({ toggle: false})) {
+                element.collapse('hide')
+            }
+        });
 
     $('.accept-modal').click(function (e) {
         $.ajax({

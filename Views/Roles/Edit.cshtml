@@ -1,16 +1,26 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @model Restaurant.ViewModels.ChangeRoleViewModel
 
-<h2>Изменение ролей для пользователя @Model.UserEmail</h2>
-
-<form asp-action="Edit" method="post">
-    <input type="hidden" name="userId" value="@Model.UserId" />
-    <div class="form-group">
-        @foreach (IdentityRole role in Model.AllRoles)
-        {
-            <input type="checkbox" name="roles" value="@role.Name"
-                   @(Model.UserRoles.Contains(role.Name) ? "checked=\"checked\"" : "") />@role.Name <br />
-            }
+<div class="card w-50 shadow m-0 ml-auto mr-auto flex-column mt-5 shadow">
+    <div class="h4 card-header bg-danger text-center" style="color: white">
+        Изменение роли пользователя
     </div>
-    <button type="submit" class="btn btn-primary">Сохранить</button>
-</form>
+    <form asp-action="Edit" method="post">
+        <div align="center" class="h5 my-3">Пользователь: @Model.UserEmail</div>
+        <input type="hidden" name="userId" value="@Model.UserId" />
+        <div class="form-group mx-5">
+            @foreach (IdentityRole role in Model.AllRoles)
+            {
+                if (role.Name != "admin")
+                {
+                    <input class="mb-3" type="radio" name="roles" value="@role.Name"
+                           @(Model.UserRoles.Contains(role.Name) ? "checked=\"checked\"" : "") />@role.Name <br />
+                    }
+                }
+        </div>
+        <div class="card-footer d-flex justify-content-center pt-3 pb-4">
+            <button class="btn btn-danger mx-1" type="submit">Сохранить</button>
+            <a class="btn btn-secondary mx-1" asp-action="UserList">Отмена</a>
+        </div>
+    </form>
+</div>

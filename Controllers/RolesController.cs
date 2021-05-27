@@ -53,7 +53,14 @@ namespace Restaurant.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult UserList() => View(_userManager.Users.ToList());
+        public async Task<IActionResult> UserList()
+        {
+            var users = await _userManager.GetUsersInRoleAsync("user");
+            var employees = await _userManager.GetUsersInRoleAsync("employee");
+            users = users.Concat(employees).ToList();
+
+            return View(users);
+        }
 
         public async Task<IActionResult> Edit(string userId)
         {

@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Restaurant.Models.Data.Dish>
+@{
+    ViewBag.Title = "Работа с блюдами";
+}
+
+<nav class="col navbar navbar-expand-sm navbar-toggleable-sm bg-light">
+    <div class="navbar d-inline-flex flex-sm-row">
+        <ul class="navbar-nav flex-grow-1">
+            <li class="nav-link active">
+                <a asp-action="AddDish">Добавить блюдо</a>
+            </li>
+            <li class="nav-link active">
+                <a asp-action="Index" asp-controller="Users">Назад</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<table>
+    <thead>
+        <tr>
+            <th>№</th>
+            <th>Фотография</th>
+            <th>Название</th>
+            <th>Категория</th>
+            <th>Цена</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var dish in Model)
+        {
+        <tr>
+            <td>@dish.Id</td>
+            <td><img src="@dish.Id" height="30" width="30" alt="@dish.Name"/></td>
+            <td>@dish.Name</td>
+            <td>@dish.Category</td>
+            <td>@dish.Price руб.</td>
+            <td>
+                <form asp-action="DeleteDish" asp-route-id="@dish.Id" method="post">
+                    <a class="btn btn-link text-dark" asp-action="EditDish" asp-route-id="@dish.Id">
+                        <u>
+                            Изменить
+                        </u>
+                    </a>
+                    <button type="submit" class="btn btn-link text-dark">
+                        <u>
+                            Удалить
+                        </u>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

@@ -52,7 +52,7 @@
         </div>
     </nav>
 <table class="table table-striped table-hover">
-    <thead class="bg-secondary text-light">
+    <thead class="bg-secondary text-light position-sticky">
         <tr>
             <td scope="col" class="text-center">Стол</td>
             <td scope="col" class="text-center">Гости</td>
@@ -82,11 +82,6 @@
                 @if (@d.Active == true)
                 {
                     <a tableid="@d.Id" class="cancelbtn btn-link text-dark hand-pointer"><u>Отменить</u></a>
-                    @*<a type="button" class="btn-link text-dark text-center"
-                       data-ajax="true"
-                       data-ajax-update="#table"
-                       data-ajax-mode="replace"
-                       href="@Url.Action("CloseTableOrder", "Users", new { @id = d.Id })"><u>Отменить</u></a>*@
                 }
             </td>
         </tr>

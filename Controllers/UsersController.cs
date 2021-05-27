@@ -26,9 +26,13 @@ namespace Restaurant.Controllers
         {
             var userId = _userManager.GetUserId(User);
             var user = await _userManager.FindByIdAsync(userId);
-            var userRole = await _userManager.GetRolesAsync(user);
-                  
-                return View(_userManager.Users.ToList());          
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            var users = await _userManager.GetUsersInRoleAsync("user");
+            var employees = await _userManager.GetUsersInRoleAsync("employee");
+            users = users.Concat(employees).ToList();
+
+            return View(users);          
         }
 
         ///////////////////////////////////////////
@@ -445,5 +449,70 @@ namespace Restaurant.Controllers
             }
             return View(model);
         }
+
+        /////////////////////////////////////////////////////////
+
+        public IActionResult Dishes()
+        {
+            return View(_context.Dishes.ToList());
+        }
+
+        [HttpGet]
+        public IActionResult AddDish()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddDish(DishViewModel model)
+        {
+            Dish dish = new Dish
+            {
+                Name = model.Name,
+                Category = model.Category,
+                Price = model.Price,
+                Description = model.Description,
+                Photo = model.Photo
+            };
+            return RedirectToAction("Dishes");
+        }
+
+        [HttpGet]
+        public IActionResult EditDish(int id)
+        {
+            Dish dish = _context.Dishes.Find(id);
+            DishViewModel model = new DishViewModel
+            {
+                Id = dish.Id,
+                Name = dish.Name,
+                Category = dish.Category,
+                Price = dish.Price,
+                Description = dish.Description,
+                Photo = dish.Photo
+            };
+            return View(new { model });
+        }
+
+        [HttpPost]
+        public IActionResult EditDish(DishViewModel model)
+        {
+            Dish dish = new Dish
+            {
+                Name = model.Name,
+                Category = model.Category,
+                Price = model.Price,
+                Description = model.Description,
+                Photo = model.Photo
+            };
+            return RedirectToAction("Dishes");
+        }
+
+        public IActionResult DeleteDish(int id)
+        {
+            Dish dish = _context.Dishes.Find(id);
+            _context.Dishes.Remove(dish);
+            return View();
+        }
+
     }
 }

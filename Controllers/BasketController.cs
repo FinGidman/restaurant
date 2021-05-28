@@ -176,7 +176,7 @@ namespace Restaurant.Controllers
                 };
                 _context.Entry(dishOrder).State = EntityState.Added;
                 _context.SaveChanges();
-                //SessionHelper.ClearObject(HttpContext.Session, "cart");
+                SessionHelper.ClearObject(HttpContext.Session, "cart");
             }
             else if(model.Type == "Out")
             {

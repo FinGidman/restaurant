@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Restaurant.Models.Data;
 using Restaurant.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,12 +17,17 @@ namespace Restaurant.Controllers
         UserManager<User> _userManager;
         RoleManager<IdentityRole> _roleManager;
         ApplicationContext _context;
+        private IWebHostEnvironment _environment;
 
-        public UsersController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, ApplicationContext context)
+        public UsersController(UserManager<User> userManager,
+            RoleManager<IdentityRole> roleManager,
+            ApplicationContext context,
+            IWebHostEnvironment environment)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _context = context;
+            _environment = environment;
         }
 
         public async Task<IActionResult> Index()
@@ -452,67 +460,7 @@ namespace Restaurant.Controllers
 
         /////////////////////////////////////////////////////////
 
-        public IActionResult Dishes()
-        {
-            return View(_context.Dishes.ToList());
-        }
-
-        [HttpGet]
-        public IActionResult AddDish()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult AddDish(DishViewModel model)
-        {
-            Dish dish = new Dish
-            {
-                Name = model.Name,
-                Category = model.Category,
-                Price = model.Price,
-                Description = model.Description,
-                Photo = model.Photo
-            };
-            return RedirectToAction("Dishes");
-        }
-
-        [HttpGet]
-        public IActionResult EditDish(int id)
-        {
-            Dish dish = _context.Dishes.Find(id);
-            DishViewModel model = new DishViewModel
-            {
-                Id = dish.Id,
-                Name = dish.Name,
-                Category = dish.Category,
-                Price = dish.Price,
-                Description = dish.Description,
-                Photo = dish.Photo
-            };
-            return View(new { model });
-        }
-
-        [HttpPost]
-        public IActionResult EditDish(DishViewModel model)
-        {
-            Dish dish = new Dish
-            {
-                Name = model.Name,
-                Category = model.Category,
-                Price = model.Price,
-                Description = model.Description,
-                Photo = model.Photo
-            };
-            return RedirectToAction("Dishes");
-        }
-
-        public IActionResult DeleteDish(int id)
-        {
-            Dish dish = _context.Dishes.Find(id);
-            _context.Dishes.Remove(dish);
-            return View();
-        }
+        
 
     }
 }

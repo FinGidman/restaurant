@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,19 +11,27 @@ namespace Restaurant.ViewModels
     {
         public int Id { get; set; }
 
-        [Display(Name="Название")]
+        [Required]
+        [Display(Name = "Название")]
         public string Name { get; set; }
 
+        [Required]
         [Display(Name = "Категория")]
         public string Category { get; set; }
 
+        [Required]
         [Display(Name = "Цена")]
         public decimal Price { get; set; }
 
+        [Required]
         [Display(Name = "Описание")]
         public string Description { get; set; }
 
         [Display(Name = "Фотография")]
-        public string Photo { get; set; }
+        public string Photopath { get; set; }
+
+        [Required]
+        [Display(Name = "Фотография")]
+        public IFormFile Photo {get; set;}
     }
 }

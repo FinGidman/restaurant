@@ -7,20 +7,21 @@
         <div class="row">
             <div class="col-sm-5">
                 <div class="row-padding pr-5">
-                    <h1 class="header-high hblue">Food is the most precious thing!</h1>
+                    <h1 class="header-high hblue">Окунитесь в мир Итальянской кухни!</h1>
                     <div>
-                        <button class="btn-order mx-auto mt-4" href="#">Order now!</button>
+                        <button class="btn-order mx-auto mt-4" href="#">Заказать</button>
                     </div>
                 </div>
                 <div class="p-0">
                     <ul class="d-flex flex-row ul-no-markers pl-0">
-                        <li class="pr-4 flex-sm-column text-center font-style-1">Fast service</li>
-                        <li class="pr-4 flex-sm-column text-center font-style-1 border border-3 border-top-0 border-bottom-0">Fresh food</li>
-                        <li class="pr-4 flex-sm-column text-center font-style-1">First class</li>
+                        <li class="pr-4 flex-sm-column text-center font-style-1">Свежесть</li>
+                        <li class="pr-4 flex-sm-column text-center font-style-1 border border-3 border-top-0 border-bottom-0">Скорость</li>
+                        <li class="pr-4 flex-sm-column text-center font-style-1">Мастерство</li>
                     </ul>
                 </div>
             </div>
             <div class="col-md bg-danger">
+
             </div>
         </div>
     </div>
@@ -33,9 +34,9 @@
             </div>
             <div class="col-sm-6">
                 <div class="row-padding pr-5">
-                    <h1 class="header-high text-end hblue">Feel the atmosphere of our restaurant</h1>
+                    <h1 class="header-high text-end hblue">Насладитесь атмосферой нашего ресторана</h1>
                     <div class="ml-1">
-                        <button class="btn-order mx-auto mt-4" href="#">Book now!</button>
+                        <button class="btn-order mx-auto mt-4" href="#">Забронировать</button>
                     </div>
                 </div>
             </div>
@@ -89,14 +90,14 @@
 
     <div class="container-fluid p-0">
         <div class="row">
-            <h2 class="col-sm-2 pr-0"> Contacts </h2>
+            <h2 class="col-sm-2 pr-0"> Контакты </h2>
             <div class="col-md container-fluid p-0 m-0"><hr class="mt-4 hr-style-1" /></div>
         </div>
         <div class="map d-flex justify-content-center pt-5">
             <div class="map-1">
-                <a href="https://yandex.by/maps/157/minsk/?utm_medium=mapframe&utm_source=maps" class="map-2">�����</a>
+                <a href="https://yandex.by/maps/157/minsk/?utm_medium=mapframe&utm_source=maps" class="map-2">Ссылка</a>
                 <a href="https://yandex.by/maps/157/minsk/geo/31326023/?ll=27.559900%2C53.899114&utm_medium=mapframe&utm_source=maps&z=16.07" class="map-3">
-                    gg
+                    Ссылка2
                 </a>
                 <iframe src="https://yandex.by/map-widget/v1/-/CCUYIMA0xA" width="720" height="400" frameborder="1" allowfullscreen="true" class="map-4">
                 </iframe>
@@ -106,21 +107,4 @@
 
         </div>
     </div>
-</div>
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    @if (User.Identity.IsAuthenticated)
-    {
-        <p>@User.Identity.Name</p>
-
-        <form method="post" asp-controller="Account" asp-action="Logout">
-            <input type="submit" value="Выход" />
-        </form>
-    }
-    else
-    {
-        <a asp-controller="Account" asp-action="Login">Вход</a>
-        <a asp-controller="Account" asp-action="Register">Регистрация</a>
-    }
 </div>

@@ -18,7 +18,14 @@
     <header>
         <nav class="col navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow py-3" style="background-color: #fff8f7">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Restaurant</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 512 512" width="30" height="30">
+                        <path d="M48,272H90.523a23.832,23.832,0,0,0,6.393,25.692l65.678,60.2.006-.006c.055.05.1.106.161.154L266.554,448H264a8,8,0,0,0-8,8v32a8,8,0,0,0,8,8h96a8,8,0,0,0,8-8V456a8,8,0,0,0-8-8V435.313l4.284-4.284A39.735,39.735,0,0,0,376,402.745V353.733l29-63.8A23.884,23.884,0,0,0,405.776,272H464a24.028,24.028,0,0,0,24-24V232a8,8,0,0,0-8-8H448v-8c0-92.636-75.364-168-168-168V32h8a8,8,0,0,0,0-16H224a8,8,0,0,0,0,16h8V48C139.364,48,64,123.364,64,216v8H32a8,8,0,0,0-8,8v16A24.028,24.028,0,0,0,48,272Zm57.677,5.1a7.823,7.823,0,0,1,7.456-5.1H117.7a8.016,8.016,0,0,1,7.283,4.689l6.014,13.23,0,.012,13.48,29.655L107.727,285.9A7.823,7.823,0,0,1,105.677,277.1ZM352,480H272V464h80Zm37.878-204.331a7.864,7.864,0,0,1,.557,7.641l-29.718,65.379A8.013,8.013,0,0,0,360,352v50.745a23.847,23.847,0,0,1-7.029,16.971l-6.628,6.627A8,8,0,0,0,344,432v16H290.984L174.56,347.1l-29-63.789A8,8,0,0,1,152.848,272h5.263a7.956,7.956,0,0,1,7.156,4.422l27.578,55.156a8,8,0,0,0,4.184,3.85l80,32a8,8,0,0,0,4.911.333l32-8a8,8,0,0,0,5.083-3.93l43.452-79.662A8,8,0,0,1,369.5,272h13.654A7.864,7.864,0,0,1,389.878,275.669ZM180.944,272h165.58l-39.867,73.09-26.088,6.521L205.8,321.7ZM248,32h16V48H248ZM80,216c0-83.813,68.187-152,152-152h48c83.813,0,152,68.187,152,152v8H80ZM40,240H472v8a8.009,8.009,0,0,1-8,8H48a8.009,8.009,0,0,1-8-8Z" />
+                    </svg>
+                    <span style="font-family:'Bernadette Rough';">
+                        Belvidere
+                    </span>
+                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -26,31 +33,31 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-common" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
+                            <a class="nav-link text-common item-link h5 mb-0 " asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-common" asp-area="" asp-controller="Home" asp-action="Menu">Меню</a>
+                            <a class="nav-link text-common item-link h5 mb-0 " asp-area="" asp-controller="Home" asp-action="Menu">Меню</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-common" asp-area="" asp-controller="Booking" asp-action="Index">Бронирование</a>
+                            <a class="nav-link text-common item-link h5 mb-0 " asp-area="" asp-controller="Booking" asp-action="Index">Бронирование</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-common" asp-area="" asp-controller="Home" asp-action="Privacy">О нас</a>
+                            <a class="nav-link text-common item-link h5 mb-0 " asp-area="" asp-controller="Home" asp-action="Privacy">О нас</a>
                         </li>
                     </ul>
                 </div>
 
                 @if (!User.Identity.IsAuthenticated)
                 {
-                    <div class="justify-content-end navbar-collapse collapse d-sm-inline-flex flex-sm-row">
-                        <ul class="navbar-nav flex-grow-1">
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row">
+                        <ul class="navbar-nav flex-grow-1 ml-auto">
                             <li class="nav-item">
-                                <a class="nav-link text-common" asp-controller="Account" asp-action="Login">
+                                <a class="nav-link text-common item-link h5 mb-0 " asp-controller="Account" asp-action="Login">
                                     Войти
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-common" asp-controller="Account" asp-action="Register">
+                                <a class="nav-link text-common item-link h5 mb-0 " asp-controller="Account" asp-action="Register">
                                     Регистрация
                                 </a>
                             </li>
@@ -60,15 +67,12 @@
                 else if (User.Identity.IsAuthenticated)
                 {
                     <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row">
-                        <ul class="navbar-nav flex-grow-1" asp-area="" asp-controller="Account" asp-action="Login">
-                            <li class="nav-item">
-                                <a class="nav-link text-common" asp-controller="Users" asp-action="Index">
+                        <ul class="navbar-nav flex-grow-1 ml-auto" asp-area="" asp-controller="Account" asp-action="Login">
+                            <li class="nav-item ">
+                                <a class="nav-link text-common item-link h5 mb-0 " asp-controller="Users" asp-action="Index">
                                     Профиль
                                 </a>
                             </li>
-                            @*<li class="nav-item text-dark">
-                                    <a class="nav-link text-dark" method="post" asp-controller="Account" asp-action="Logout">Выйти</a>
-                                </li>*@
                         </ul>
                     </div>
                 }
@@ -90,26 +94,26 @@
         background-color: #fff8f7">
         <div class="container m-auto row pb-3">
             <div class="col-sm-3">
-                <h5 class="hblue">Best Products</h5>
+                <h5 class="hblue">Популярное</h5>
                 <ul class="nomarkers pl-0">
-                    <li>Carbonara</li>
-                    <li>Rizotto</li>
-                    <li>Bolonieze</li>
-                    <li>Ricotta</li>
-                    <li>Cassatielo</li>
+                    <li>Карбонара</li>
+                    <li>Ризотто</li>
+                    <li>Болоньезе</li>
+                    <li>Рикотта</li>
+                    <li>Кассатиелла</li>
                 </ul>
             </div>
             <div class="col-sm-3">
-                <h5 class="hblue">Quick links</h5>
+                <h5 class="hblue">Быстрый доступ</h5>
                 <ul class="nomarkers pl-0">
-                    <li>Home</li>
-                    <li>Profile</li>
-                    <li>Booking</li>
-                    <li>Menu</li>
+                    <li>Главная</li>
+                    <li>Профиль</li>
+                    <li>Бронирование</li>
+                    <li>Меню</li>
                 </ul>
             </div>
             <div class="col-sm-3">
-                <h5 class="hblue">Contacts</h5>
+                <h5 class="hblue">Контакты</h5>
                 <ul class="nomarkers pl-0">
                     <li>A1. +375(44) 444-44-44</li>
                     <li>MTC. +375(44) 444-44-44</li>
@@ -118,7 +122,7 @@
                 </ul>
             </div>
             <div class="col-md">
-                <h5 class="hblue">Subscribe to us in social media</h5>
+                <h5 class="hblue">Мы в соцсетях</h5>
                 <ul class="nomarkers pl-0 ">
                     <li class="d-inline">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#2f2d4e" class="bi bi-facebook" viewBox="0 0 16 16">
@@ -146,6 +150,9 @@
     </footer>
     <script type="text/javascript">
         $(document).ready(function () {
+            
+
+
             $.ajax({
                 type: "GET",
                 url: "@Url.Action("CircleBtn", "Home")",
@@ -157,6 +164,11 @@
                     console.log(msg);
                 }
             });
+        });
+
+        $('.item-link').click(function (e) {
+            $('.item-link').addClass("active");
+            $(this).removeClass("active");
         });
     </script>
 </body>

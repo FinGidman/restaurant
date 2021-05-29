@@ -22,12 +22,6 @@
                 <a class="nav-link text-light" asp-action="Sort" asp-controller="Home" asp-route-category="салат">Салаты</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-light" asp-action="Sort" asp-controller="Home" asp-route-category="мясное">Мясные блюда</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-light" asp-action="Sort" asp-controller="Home" asp-route-category="вегетарианское">Вегетаринское меню</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link text-light" asp-action="Sort" asp-controller="Home" asp-route-category="закуска">Закуски</a>
             </li>
             <li class="nav-item">
@@ -40,26 +34,29 @@
     </div>
 </nav>
 
-<div class="row row-cols-1 row-cols-md-2 mt-5">
+<div class="card-deck">
     @{
         foreach (var d in Model)
         {
-            <div class="col">
-                <div class="card m-1 p-0 shadow" style="max-width: 380px; max-height:640px">
-                        <img  src=@d.Photo class="img-fluid card-img-top" alt=@d.Name style="max-height: 240px; min-width: 180px" />
-                    <div class="card-body">
-                        <h5 class="card-title font-italic" style="color: #E22104">@d.Name</h5>
-                        <hr/>
-                        <p class="card-text align-content-stretch text-common">@d.Description</p>
-                        <p class="card-title text-common font-weight-bold font-italic text-right">Цена: @Math.Round(d.Price,2) руб.</p>
+        <div class="col-sm-4 mb-4 mt-3 d-flex">
+            <div class="card m-1 p-0 shadow position-relative">
+                <img src=@d.Photo class="img-fluid card-img-top" alt=@d.Name style="height: 240px; min-width: 180px" />
+                <div class="card-body">
+                    <h5 class="card-title font-italic h5" style="color: #E22104">@d.Name</h5>
+                    <div>
                         <hr />
+                        <p class="card-text align-content-stretch text-common">@d.Description</p>
+                        <p class="card-title text-common font-weight-bold font-italic text-right h5">Цена: @Math.Round(d.Price, 2) руб.</p>
+                        <hr />
+
                         <form method="post" asp-action="Add" asp-controller="Basket" align="right">
                             <input hidden="hidden" readonly="readonly" name="id" type="text" value="@d.Id" />
-                            <button  class="add btn btn-info" type="submit">Добавить</button>
+                            <button class="add btn btn-info" type="submit">Добавить</button>
                         </form>
                     </div>
                 </div>
             </div>
+        </div>
         }
     }
 </div>

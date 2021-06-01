@@ -15,41 +15,43 @@
         </ul>
     </div>
 </nav>
-<table class="table">
-    <thead>
-        <tr>
-            <th>№</th>
-            <th>Фотография</th>
-            <th>Название</th>
-            <th>Категория</th>
-            <th>Цена</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var dish in Model)
-        {
-        <tr>
-            <td>@dish.Id</td>
-            <td><img src="@dish.Id" height="30" width="30" alt="@dish.Name"/></td>
-            <td>@dish.Name</td>
-            <td>@dish.Category</td>
-            <td>@dish.Price руб.</td>
-            <td>
-                <form asp-action="DeleteDish" asp-route-id="@dish.Id" method="post">
-                    <a class="btn btn-link text-dark" asp-action="EditDish" asp-route-id="@dish.Id">
-                        <u>
-                            Изменить
-                        </u>
-                    </a>
-                    <button type="submit" class="btn btn-link text-dark">
-                        <u>
-                            Удалить
-                        </u>
-                    </button>
-                </form>
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
+<div class="vh-100" style="overflow-x: auto">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>Фотография</th>
+                <th>Название</th>
+                <th>Категория</th>
+                <th>Цена</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dish in Model)
+            {
+                <tr>
+                    <td>@dish.Id</td>
+                    <td><img src="@dish.Photo" style="height: 30px; width: 50px;" /></td>
+                    <td>@dish.Name</td>
+                    <td>@dish.Category</td>
+                    <td>@dish.Price руб.</td>
+                    <td>
+                        <form asp-action="DeleteDish" asp-route-id="@dish.Id" method="post">
+                            <a class="btn btn-link text-dark" asp-action="EditDish" asp-route-id="@dish.Id">
+                                <u>
+                                    Изменить
+                                </u>
+                            </a>
+                            <button type="submit" class="btn btn-link text-dark">
+                                <u>
+                                    Удалить
+                                </u>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

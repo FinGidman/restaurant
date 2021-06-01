@@ -22,21 +22,6 @@ namespace Restaurant.Models.Data
         public DbSet<TableOrder> TableOrders { get; set; }
         public DbSet<Dish> Dishes { get; set; }
         public DbSet<DishOrder> DishOrders { get; set; }
-        //protected override void OnModelCreating(ModelBuilder builder)
-        //{
-        //    builder.Entity<Table>(entity =>
-        //    {
-        //        entity.Property(e => e.Id)
-        //        .IsRequired();
-        //    });
 
-        //    builder.Entity<IDish>(entity =>
-        //    {
-        //        entity.Property(e => e.Id)
-        //        .IsRequired();
-        //    });
-
-        //    base.OnModelCreating(builder);
-        //}
     }
 }

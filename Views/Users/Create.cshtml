@@ -24,6 +24,14 @@
             <label asp-for="PersonSurname" class="control-label">Фамилия</label>
             <input type="text" asp-for="PersonSurname" class="form-control" />
         </div>
+        <div class="form-check col-sm-7 px-0 mx-auto">
+            <input class="form-check-input" type="radio" asp-for="Role" name="role" value="user"  />
+            <label class="control-label">Пользователь</label>
+        </div>
+        <div class="form-check col-sm-7 px-0 mx-auto">
+            <input class="form-check-input" type="radio" asp-for="Role" name="role" value="employee" />
+            <label class="control-label">Работник</label>
+        </div>
         <div class="card-footer d-flex justify-content-center pt-3 pb-4">
             <input type="submit" value="Добавить" class="btn btn-danger mx-1" />
             <a asp-action="Index" class="btn btn-secondary mx-1 text-light">Отмена</a>

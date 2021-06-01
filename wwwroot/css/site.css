@@ -213,3 +213,9 @@ my-50{
     color: #2f2d4e !important;
     font-family: 'Palatino Linotype';
 }
+
+.content {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}

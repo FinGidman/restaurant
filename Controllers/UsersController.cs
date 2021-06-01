@@ -14,6 +14,7 @@ namespace Restaurant.Controllers
 {
     public class UsersController : Controller
     {
+        private readonly SignInManager<User> _signInManager;
         UserManager<User> _userManager;
         RoleManager<IdentityRole> _roleManager;
         ApplicationContext _context;
@@ -21,6 +22,7 @@ namespace Restaurant.Controllers
 
         public UsersController(UserManager<User> userManager,
             RoleManager<IdentityRole> roleManager,
+            SignInManager<User> signInManager,
             ApplicationContext context,
             IWebHostEnvironment environment)
         {
@@ -28,6 +30,7 @@ namespace Restaurant.Controllers
             _roleManager = roleManager;
             _context = context;
             _environment = environment;
+            _signInManager = signInManager;
         }
 
         public async Task<IActionResult> Index()
@@ -314,7 +317,10 @@ namespace Restaurant.Controllers
 
         ///////////////////////////////////////////
 
-        public IActionResult Create() => View();
+        public IActionResult Create()
+        {
+            return View();
+        }
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateUserViewModel model)
@@ -325,6 +331,8 @@ namespace Restaurant.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    var newUser = await _userManager.FindByEmailAsync(model.Email);
+                    await _userManager.AddToRoleAsync(newUser, model.Role);
                     return RedirectToAction("Index");
                 }
                 else

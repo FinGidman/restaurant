@@ -2,30 +2,33 @@
 @{
     ViewBag.Title = "Редактирование пользователя";
 }
-<div class="card w-50 shadow m-0 ml-auto mr-auto flex-column mt-5 shadow">
-    <div class="h4 card-header bg-danger text-center" style="color: white">
-        Изменение роли пользователя
+<div class="card col-md-6 px-0 shadow m-0 ml-auto mr-auto flex-column mt-5 shadow">
+    <div class="h3 card-header bg-lightred py-4 text-center" style="color: white">
+        Изменение данных пользователя
     </div>
     <form asp-action="Edit" asp-controller="Users">
-        <div asp-validation-summary="All" class="text-danger"></div>
-        <div class="form-group col-sm-7 px-0 mx-auto mb-3">
-            <input type="hidden" asp-for="Id" />
-        </div>
-        <div class="form-group col-sm-7 px-0 mx-auto mb-3">
-            <label asp-for="Email" class="control-label">Email</label>
-            <input type="text" asp-for="Email" class="form-control" />
-        </div>
-        <div class="form-group col-sm-7 px-0 mx-auto mb-3">
-            <label asp-for="PersonName" class="control-label">Имя</label>
-            <input type="text" asp-for="PersonName" class="form-control" />
-        </div>
-        <div class="form-group col-sm-7 px-0 mx-auto mb-5">
-            <label asp-for="PersonSurname" class="control-label">Фамилия</label>
-            <input type="text" asp-for="PersonSurname" class="form-control" />
+        <div class="px-3">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group col-sm-7 px-0 mx-auto mb-3">
+                <input type="hidden" asp-for="Id" />
+            </div>
+            <div class="form-group col-sm-7 px-0 mx-auto mb-3">
+                <label asp-for="Email" class="control-label">Email</label>
+                <input type="text" asp-for="Email" class="form-control" />
+            </div>
+            <div class="form-group col-sm-7 px-0 mx-auto mb-3">
+                <label asp-for="PersonName" class="control-label">Имя</label>
+                <input type="text" asp-for="PersonName" class="form-control" />
+            </div>
+            <div class="form-group col-sm-7 px-0 mx-auto mb-5">
+                <label asp-for="PersonSurname" class="control-label">Фамилия</label>
+                <input type="text" asp-for="PersonSurname" class="form-control" />
+            </div>
         </div>
         <div class="card-footer d-flex justify-content-center pt-3 pb-4">
-            <input type="submit" value="Сохранить" class="btn btn-danger mx-1" />
-            <a asp-action="Index" class="btn btn-secondary mx-1 text-light">Отмена</a>
+            <input type="submit" value="Сохранить" class="btn btn-common mx-1" />
         </div>
-</form>
+    </form>
 </div>
+<a asp-action="Index" asp-controller="Users" class="nav-link text-center text-dark h5 mt-4"><u>Отмена</u></a>
+

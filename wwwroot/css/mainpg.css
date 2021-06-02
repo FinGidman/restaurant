@@ -39,5 +39,69 @@
 
     animation-delay: 0s;
 }
-
 */
+
+.image-container{
+    background-image: url(../images/main1.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: 3s;
+
+    animation-name: animate;
+    animation-direction: alternate-reverse;
+    animation-duration:12s;
+    animation-fill-mode:forwards;
+    animation-iteration-count: infinite;
+    animation-play-state:running;
+    animation-timing-function:ease-in-out;
+}
+
+@keyframes animate{
+    0%{
+        background-image: url(../images/main1.jpg);
+    }
+    25% {
+        background-image: url(../images/main2.jpg);
+    }
+    50% {
+        background-image: url(../images/main3.jpg);
+    }
+    100% {
+        background-image: url(../images/main4.jpeg);
+    }
+}
+
+.image-container2 {
+    background-image: url(../images/main5.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: 3s;
+
+    animation-name: animate2;
+    animation-direction: alternate-reverse;
+    animation-duration: 12s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-play-state: running;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes animate2 {
+    0% {
+        background-image: url(../images/main5.jpg);
+    }
+
+    25% {
+        background-image: url(../images/main6.jpg);
+    }
+
+    50% {
+        background-image: url(../images/main7.jpg);
+    }
+
+    100% {
+        background-image: url(../images/main8.jpg);
+    }
+}

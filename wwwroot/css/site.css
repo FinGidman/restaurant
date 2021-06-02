@@ -180,14 +180,13 @@ my-50{
     height: 25px;
     width: 25px;
     background-color: white;
-    position: fixed;
     color: darkorange;
     border-radius: 50%;
     border-width: 1px;
     border-style: solid;
     border-color: darkorange;
-    right: 75px;
-    top: 92%;
+    bottom: 0;
+    margin-inline: auto;
 }
 
 .text-common {
@@ -218,4 +217,15 @@ my-50{
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+}
+
+.btn-common {
+    background-color: #E22104;
+    padding: 10px 20px;
+    font-size: 14pt;
+    color: white;
+    border: solid #E22104 3px;
+    border-radius: 14px;
+    transition-property: font-size;
+    transition-duration: 0.5s;
 }

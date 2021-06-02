@@ -177,13 +177,13 @@ else if (User.Identity.IsAuthenticated && User.IsInRole("user"))
     <nav class="col navbar navbar-expand-sm navbar-toggleable-sm">
         <div class="navbar d-inline-flex flex-sm-row">
             <ul class="navbar-nav flex-grow-1">
-                <li class="nav-item">
-                    <a class="nav-link"
+                <li class="nav-item my-2">
+                    <a class="btn btn-primary"
                        asp-action="EditFromUserProfile"
                        asp-controller="Users">Изменить профиль</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link"
+                <li class="nav-item m-2">
+                    <a class="btn btn-primary"
                        asp-action="ChangePasswordFromUserProfile"
                        asp-controller="Users">Сменить пароль</a>
                 </li>

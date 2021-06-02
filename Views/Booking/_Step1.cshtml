@@ -36,29 +36,30 @@
     </div>
 </div>
 <hr />
-<div class="my-50 d-flex flex-column mt-5">
-    @*<div class="row m-auto card col-sm-10 w-50 align-middle h-50"></div>*@
-    <div class="card w-50 ml-auto mr-auto shadow">
-        <form class="m-auto pt-5 pb-4"
+<div class="card px-0 col-md-6 mt-5 mx-auto">
+    <div class="card-body p-0">
+        <form class="m-auto pt-5"
               asp-action="Step1"
               asp-controller="Booking"
               data-ajax="true"
               data-ajax-method="POST"
               data-ajax-mode="replace"
               data-ajax-update="#steplayout">
-            <div asp-validation-summary="ModelOnly"></div>
-            <div class="form-group mb-3">
-                <label class="col-sm card-title" asp-for="Date"></label><br />
-                <input class="form-control input-group-sm" type="date" min="@DateTime.Today" value="@date" asp-for="Date" />
-                <span class="form-text text-muted" asp-validation-for="Date"></span>
+            <div class="px-3">
+                <div asp-validation-summary="ModelOnly"></div>
+                <div class="form-group col-sm-7 mx-auto mb-3">
+                    <label class="col-sm card-title" asp-for="Date"></label><br />
+                    <input class="form-control input-group-sm" type="date" min="@DateTime.Today" value="@date" asp-for="Date" />
+                    <span class="form-text text-muted" asp-validation-for="Date"></span>
+                </div>
+                <div class="form-group col-sm-7 mx-auto mb-3">
+                    <label class="col-sm card-title" asp-for="Persons"></label><br />
+                    <input class="form-control input-group-sm" type="number" min="1" max="12" value="1" asp-for="Persons" />
+                    <span class="form-text text-muted" asp-validation-for="Persons"></span>
+                </div>
             </div>
-            <div class="form-group mb-3">
-                <label class="col-sm card-title" asp-for="Persons"></label><br />
-                <input class="form-control input-group-sm" type="number" min="1" max="12" value="1" asp-for="Persons" />
-                <span class="form-text text-muted" asp-validation-for="Persons"></span>
-            </div>
-            <div class="d-flex justify-content-center mt-5">
-                <input class="btn btn-danger" type="submit" value="Найти столы" />
+            <div class="card-footer d-flex justify-content-center mt-5">
+                <input class="btn btn-common" type="submit" value="Найти столы" />
             </div>
         </form>
     </div>

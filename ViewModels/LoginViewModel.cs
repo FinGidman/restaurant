@@ -14,7 +14,7 @@ namespace Restaurant.ViewModels
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Email")]
+        [Display(Name = "Пароль")]
         public string Password { get; set; }
 
         [Display(Name="Запомнить меня")]

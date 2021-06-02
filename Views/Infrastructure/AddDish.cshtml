@@ -1,56 +1,60 @@
 ﻿@model Restaurant.ViewModels.DishViewModel
 
 
-<div class="card w-50 shadow m-0 ml-auto mr-auto flex-column mt-5">
-    <div class="h4 card-header bg-danger text-center" style="color: white">
+<div class="card col-md-7 px-0 shadow m-0 ml-auto mr-auto flex-column mt-5">
+    <div class="h3 py-4 card-header bg-lightred text-center" style="color: white">
         Добавление блюда
     </div>
     <form method="post" enctype="multipart/form-data" asp-controller="Infrastructure" asp-action="AddDish">
-        <div class="card-body">
-            <div asp-validation-summary="ModelOnly"></div>
-            <div class="form-group col-sm-7 px-0 mx-auto mb-3">
-                <label class="col-sm card-title" asp-for="Name"></label>
-                <input class="form-control input-group-sm" asp-for="Name" />
-                <span class="form-text text-muted" asp-validation-for="Name"></span>
+        <div class="card-body p-0 mt-4">
+            <div class="px-3">
+                <div asp-validation-summary="ModelOnly"></div>
+                <div class="form-group col-sm-9 px-0 mx-auto mb-3">
+                    <label class="col-sm card-title" asp-for="Name"></label>
+                    <input class="form-control input-group-sm" asp-for="Name" />
+                    <span class="form-text text-muted" asp-validation-for="Name"></span>
+                </div>
+                <div class="form-group col-sm-9 px-0 mx-auto mb-3">
+                    <label class="col-sm card-title" asp-for="Category"></label>
+                    <select class="form-control input-group-sm" asp-for="Category">
+                        <option>суп</option>
+                        <option>спагетти</option>
+                        <option>ризотто</option>
+                        <option>лазанья</option>
+                        <option>равиолли</option>
+                        <option>салат</option>
+                        <option>мясное</option>
+                        <option>вегетарианское</option>
+                        <option>закуска</option>
+                        <option>десерт</option>
+                        <option>напиток</option>
+                    </select>
+                    <span class="form-text text-muted" asp-validation-for="Category"></span>
+                </div>
+                <div class="form-group col-sm-9 px-0 mx-auto mb-3">
+                    <label class="col-sm card-title" asp-for="Price"></label>
+                    <input class="form-control input-group-sm" asp-for="Price" />
+                    <span class="form-text text-muted" asp-validation-for="Price"></span>
+                </div>
+                <div class="form-group col-sm-9 px-0 mx-auto mb-3">
+                    <label class="col-sm card-title" asp-for="Description"></label>
+                    <textarea style="height: 160px" class="form-control input-group-sm" asp-for="Description"></textarea>
+                </div>
+                <div class="form-group col-sm-9 px-0 mx-auto mb-3">
+                    <label class="col-sm card-title" asp-for="Photo"></label>
+                    <img align="middle" id="dishimg" height="140" width="140" />
+                    <input type="file" asp-for="Photo" onchange="onFileSelected(event)" />
+                    <span class="form-text text-muted" asp-validation-for="Photo"></span>
+                </div>
             </div>
-            <div class="form-group col-sm-7 px-0 mx-auto mb-3">
-                <label class="col-sm card-title" asp-for="Category"></label>
-                <select class="form-control input-group-sm" asp-for="Category">
-                    <option>суп</option>
-                    <option>спагетти</option>
-                    <option>ризотто</option>
-                    <option>лазанья</option>
-                    <option>равиолли</option>
-                    <option>салат</option>
-                    <option>мясное</option>
-                    <option>вегетарианское</option>
-                    <option>закуска</option>
-                    <option>десерт</option>
-                    <option>напиток</option>
-                </select>
-                <span class="form-text text-muted" asp-validation-for="Category"></span>
-            </div>
-            <div class="form-group col-sm-7 px-0 mx-auto mb-3">
-                <label class="col-sm card-title" asp-for="Price"></label>
-                <input class="form-control input-group-sm" asp-for="Price" />
-                <span class="form-text text-muted" asp-validation-for="Price"></span>
-            </div>
-            <div class="form-group col-sm-7 px-0 mx-auto mb-3">
-                <label class="col-sm card-title" asp-for="Description"></label>
-                <textarea style="height: 160px" class="form-control input-group-sm" asp-for="Description"></textarea>
-            </div>
-            <div class="form-group col-sm-7 px-0 mx-auto mb-3">
-                <label class="col-sm card-title" asp-for="Photo"></label>
-                <img align="middle" id="dishimg" height="140" width="140" />
-                <input type="file" asp-for="Photo" onchange="onFileSelected(event)" />
-                <span class="form-text text-muted" asp-validation-for="Photo"></span>
-            </div>
-            <div class="card-footer d-flex justify-content-center pt-3 pb-4">
-                <input class="btn btn-danger" type="submit" value="Сохранить" />
-            </div>
+                <div class="card-footer d-flex justify-content-center pt-3 pb-4">
+                    <input class="btn btn-common" type="submit" value="Сохранить" />
+                </div>
+            
         </div>
     </form>
 </div>
+<a class="nav-link text-center text-dark h5 mt-4" asp-action="Index"><u>Отмена</u></a>
 <script type="text/javascript">
     function onFileSelected(event) {
         var selectedFile = event.target.files[0];

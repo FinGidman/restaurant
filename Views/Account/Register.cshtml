@@ -1,39 +1,40 @@
 ﻿@model Restaurant.ViewModels.RegisterViewModel
-    <div class="card w-50 mx-auto mt-5 shadow">
-        <div class="h4 bg-danger card-header text-center" style="color: white">
-            Регистрация
-        </div>
-        <form method="post" asp-controller="Account" asp-action="Register">
-            <div class="card-body">
-                <div asp-validation-summary="ModelOnly"></div>
-                <div class="form-group col-sm-7 px-0 mx-auto mb-3">
-                    <label class="col-sm card-title" asp-for="Email"></label><br />
-                    <input class="form-control input-group-sm" asp-for="Email" />
-                    <span class="form-text text-muted" asp-validation-for="Email"></span>
-                </div>
-                <div  class="form-group col-sm-7 px-0 mx-auto mb-3">
-                    <label class="col-sm card-title" asp-for="PersonName"></label><br />
-                    <input class="form-control input-group-sm" asp-for="PersonName" />
-                    <span class="form-text text-muted" asp-validation-for="PersonName"></span>
-                </div>
-                <div  class="form-group col-sm-7 px-0 mx-auto mb-3">
-                    <label class="col-sm card-title" asp-for="PersonSurname"></label><br />
-                    <input class="form-control input-group-sm" asp-for="PersonSurname" />
-                    <span class="form-text text-muted" asp-validation-for="PersonSurname"></span>
-                </div>
-                <div class="form-group col-sm-7 px-0 mx-auto mb-3">
-                    <label class="col-sm card-title" asp-for="Password"></label><br />
-                    <input class="form-control input-group-sm" asp-for="Password" />
-                    <span class="form-text text-muted" asp-validation-for="Password"></span>
-                </div>
-                <div class="form-group col-sm-7 px-0 mx-auto mb-3">
-                    <label class="col-sm card-title" asp-for="PasswordConfirm"></label><br />
-                    <input class="form-control input-group-sm" asp-for="PasswordConfirm" />
-                    <span class="form-text text-muted" asp-validation-for="PasswordConfirm"></span>
-                </div>
-            </div>
-            <div class="card-footer d-flex justify-content-center pt-3 pb-4">
-                <input class="btn btn-danger" type="submit" value="Регистрация" />
-            </div>
-        </form>
+<div class="card col-sm-6 px-0 mx-auto mt-5 shadow">
+    <div class="h3 bg-lightred py-4 card-header text-center" style="color: white">
+        Регистрация
     </div>
+    <form method="post" asp-controller="Account" asp-action="Register">
+        <div class="card-body">
+            <div asp-validation-summary="ModelOnly"></div>
+            <div class="form-group col-sm-7 px-0 mx-auto mb-3">
+                <label class="col-sm card-title" asp-for="Email"></label><br />
+                <input class="form-control input-group-sm" asp-for="Email" />
+                <span class="form-text text-muted" asp-validation-for="Email"></span>
+            </div>
+            <div class="form-group col-sm-7 px-0 mx-auto mb-3">
+                <label class="col-sm card-title" asp-for="PersonName"></label><br />
+                <input class="form-control input-group-sm" asp-for="PersonName" />
+                <span class="form-text text-muted" asp-validation-for="PersonName"></span>
+            </div>
+            <div class="form-group col-sm-7 px-0 mx-auto mb-3">
+                <label class="col-sm card-title" asp-for="PersonSurname"></label><br />
+                <input class="form-control input-group-sm" asp-for="PersonSurname" />
+                <span class="form-text text-muted" asp-validation-for="PersonSurname"></span>
+            </div>
+            <div class="form-group col-sm-7 px-0 mx-auto mb-3">
+                <label class="col-sm card-title" asp-for="Password"></label><br />
+                <input class="form-control input-group-sm" asp-for="Password" />
+                <span class="form-text text-muted" asp-validation-for="Password"></span>
+            </div>
+            <div class="form-group col-sm-7 px-0 mx-auto mb-3">
+                <label class="col-sm card-title" asp-for="PasswordConfirm"></label><br />
+                <input class="form-control input-group-sm" asp-for="PasswordConfirm" />
+                <span class="form-text text-muted" asp-validation-for="PasswordConfirm"></span>
+            </div>
+        </div>
+        <div class="card-footer d-flex justify-content-center pt-3 pb-4">
+            <input class="btn btn-common" type="submit" value="Регистрация" />
+        </div>
+    </form>
+</div>
+<a asp-action="Index" asp-controller="Home" class="nav-link text-center text-dark h5 mt-4"><u>Отмена</u></a>

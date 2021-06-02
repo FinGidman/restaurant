@@ -16,8 +16,8 @@
     </div>
 </nav>
 <div class="vh-100" style="overflow-x: auto">
-    <table class="table">
-        <thead>
+    <table class="table table-striped">
+        <thead class="bg-secondary text-light">
             <tr>
                 <th>№</th>
                 <th>Фотография</th>
@@ -31,12 +31,12 @@
             @foreach (var dish in Model)
             {
                 <tr>
-                    <td>@dish.Id</td>
+                    <td class="border-right">@dish.Id</td>
                     <td><img src="@dish.Photo" style="height: 30px; width: 50px;" /></td>
                     <td>@dish.Name</td>
                     <td>@dish.Category</td>
                     <td>@dish.Price руб.</td>
-                    <td>
+                    <td class="border-left">
                         <form asp-action="DeleteDish" asp-route-id="@dish.Id" method="post">
                             <a class="btn btn-link text-dark" asp-action="EditDish" asp-route-id="@dish.Id">
                                 <u>

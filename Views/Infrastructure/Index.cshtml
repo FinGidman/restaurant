@@ -35,7 +35,7 @@
                     <td><img src="@dish.Photo" style="height: 30px; width: 50px;" /></td>
                     <td>@dish.Name</td>
                     <td>@dish.Category</td>
-                    <td>@dish.Price руб.</td>
+                    <td>@Math.Round(dish.Price,2) руб.</td>
                     <td class="border-left">
                         <form asp-action="DeleteDish" asp-route-id="@dish.Id" method="post">
                             <a class="btn btn-link text-dark" asp-action="EditDish" asp-route-id="@dish.Id">

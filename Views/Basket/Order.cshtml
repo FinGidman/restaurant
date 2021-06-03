@@ -57,8 +57,6 @@
         $('.restable').change(function () {
             var date = $(this).children('option:selected').attr('orderdate');
             var id = $(this).children('option:selected').attr('restableid');
-            @*@Model.TableDate = date;
-            @Model.TableId = id;*@
             $('.order-date-input').val(date);
             $('.table-id-input').val(id);
         });

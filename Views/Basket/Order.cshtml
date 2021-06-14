@@ -27,8 +27,8 @@
                                 <option restableid="@table.TableId" orderdate="@table.OrderTime">@table.TableId на @table.OrderTime</option>
                             }
                         </select>
-                        <input class="order-date-input" type="text" asp-for="TableDate" hidden />
-                        <input class="table-id-input" type="text" asp-for="TableId" hidden />
+                        <input class="order-date-input" type="text" asp-for="TableDate" value="@Model.OrderedTables.First().OrderTime" hidden />
+                        <input class="table-id-input" type="text" asp-for="TableId" value="@Model.OrderedTables.First().TableId" hidden />
                     </div>
                 }
                 else
